@@ -1,0 +1,23 @@
+{
+    "name": "norman-huth/helpers-collection-php",
+    "license": "MIT",
+	"authors": [
+        {
+            "name": "Norman Huth",
+            "email": "norman@huth.it"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "NormanHuth\\Helpers\\": "src/"
+        },
+        "files": [
+            "functions/helpers.php"
+        ]
+    },
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^8.0|^9.0"
+    },
+    "minimum-stability": "dev"
+}
