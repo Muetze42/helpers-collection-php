@@ -6,7 +6,7 @@ For Laravel there is an extended package: [helpers-collection-laravel](https://g
 
 ## Install
 ```shell
-composer require "norman-huth/helpers-collection-php
+composer require norman-huth/helpers-collection-php
 ```
 
 ### Documentation
