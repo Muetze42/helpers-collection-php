@@ -18,7 +18,13 @@ if (!function_exists('arrayClean')) {
      */
     function arrayClear(array $array, bool $removeEmptyValues = false): array
     {
-        return Arr::clean($array, $removeEmptyValues);
+        return array_filter($array, function ($value) use ($removeEmptyValues) {
+            if ($removeEmptyValues) {
+                return !empty($value);
+            }
+
+            return !is_null($value);
+        });
     }
 }
 
@@ -36,7 +42,7 @@ if (!function_exists('arrayKeyMap')) {
     }
 }
 
-if (!function_exists('spaceBeforeCapitals')) {
+if (!function_exists('strSpaceBeforeCapitals')) {
     /**
      * Add whitespace before every upper char
      *
@@ -261,5 +267,35 @@ if (!function_exists('httpBuildQueryUrl')) {
     function httpBuildQueryUrl(string $url, array $params = []): string
     {
         return Str::httpBuildQueryUrl($url, $params);
+    }
+}
+
+if (function_exists('strRemoveNonASCIICharacters')) {
+    /**
+     * Remove non ASCII characters from a string
+     *
+     * @param string $string
+     * @return string
+     */
+    function strRemoveNonASCIICharacters(string $string): string
+    {
+        return Str::removeNonASCIICharacters($string);
+    }
+}
+
+if (!function_exists('toolGenerateSerialNo')) {
+    /**
+     * Generate a serial number
+     * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
+     *
+     * @param bool $toUpper
+     * @param int $parts
+     * @param int $partLength
+     * @param string $separator
+     * @return string
+     */
+    function toolGenerateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
+    {
+        return Tools::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }

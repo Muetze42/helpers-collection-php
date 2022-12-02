@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 class Tools
 {
     /**
-     * Replace the last comma in a list with `and`
+     * Replace the last comma in a list with `and` word
      *
      * @param string|array $content
      * @param string $word
