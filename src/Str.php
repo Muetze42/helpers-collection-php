@@ -7,6 +7,35 @@ use Illuminate\Support\Str as BaseStr;
 class Str extends BaseStr
 {
     /**
+     * Get excerpt of a string
+     *
+     * @param string $text
+     * @param int $limit
+     * @param string|null $excerpt
+     * @param string $end
+     * @return string
+     */
+    public static function getExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
+    {
+        $string = strip_tags($text);
+
+        if (strlen($text) <= $limit) {
+            return $text;
+        }
+
+        if ($excerpt) {
+            return self::getExcerpt($excerpt);
+        }
+
+        $limit = $limit-strlen($end);
+
+        $string = wordwrap($string, $limit);
+        $parts = explode("\n", $string);
+
+        return $parts[0].$end;
+    }
+
+    /**
      * Add whitespace before every upper char
      *
      * @param string $string
