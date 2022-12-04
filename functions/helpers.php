@@ -299,3 +299,19 @@ if (!function_exists('toolGenerateSerialNo')) {
         return Tools::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }
+
+if (!function_exists('strExcerpt')) {
+    /**
+     * Get excerpt of a string
+     *
+     * @param string $text
+     * @param int $limit
+     * @param string|null $excerpt
+     * @param string $end
+     * @return string
+     */
+    function strExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
+    {
+        return Str::getExcerpt($text, $limit, $excerpt, $end);
+    }
+}
