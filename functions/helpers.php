@@ -315,3 +315,17 @@ if (!function_exists('strExcerpt')) {
         return Str::getExcerpt($text, $limit, $excerpt, $end);
     }
 }
+
+if (!function_exists('indexNumber')) {
+    /**
+     * Get index number of an integer
+     *
+     * @param int $int
+     * @param int $steps
+     * @return int
+     */
+    function indexNumber(int $int, int $steps = 100): int
+    {
+        return Str::indexNumber($int, $steps);
+    }
+}

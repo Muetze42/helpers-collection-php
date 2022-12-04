@@ -90,4 +90,16 @@ class Str extends BaseStr
 
         return $url.$arg_separator.http_build_query($params);
     }
+
+    /**
+     * Get index number of an integer
+     *
+     * @param int $int
+     * @param int $steps
+     * @return int
+     */
+    public static function indexNumber(int $int, int $steps = 100): int
+    {
+        return (int)(floor($int / $steps)) * $steps;
+    }
 }
