@@ -329,3 +329,16 @@ if (!function_exists('indexNumber')) {
         return Str::indexNumber($int, $steps);
     }
 }
+
+if (!function_exists('paresMarkdown')) {
+    /**
+     * Parse the given Markdown text string into HTML.
+     *
+     * @param string $string
+     * @return string
+     */
+    function paresMarkdown(string $string): string
+    {
+        return Str::markdown($string);
+    }
+}
