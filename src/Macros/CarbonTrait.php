@@ -23,14 +23,15 @@ trait CarbonTrait
      */
     protected function responseToDateTimeString(): void
     {
-        Carbon::macro('responseToDateTimeString', function (string $datetime): string {
+        Carbon::macro('responseToDateTimeString', function (string $datetime, bool $addOffset = false): string {
             $datetime = substr($datetime, 0, 19);
             $date = Carbon::createFromFormat('Y-m-d\TH:i:s', $datetime);
-            $offset = $date->getOffset();
+            if ($addOffset) {
+                $offset = $date->getOffset();$date
+                    ->addSeconds($offset);
+            }
 
-            return $date
-                ->addSeconds($offset)
-                ->toDateTimeString();
+            return $date->toDateTimeString();
         });
     }
 }
