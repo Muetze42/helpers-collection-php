@@ -5,7 +5,7 @@ namespace Carbon {
         public static function responseToDateTimeString(string $datetime): string {
 
         }
-        public static function toAppDateString(): void {
+        public static function toAppDateString(): string {
 
         }
     }
