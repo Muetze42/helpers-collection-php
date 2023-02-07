@@ -342,3 +342,20 @@ if (!function_exists('paresMarkdown')) {
         return Str::markdown($string);
     }
 }
+
+
+
+if (!function_exists('emojiToUnicode')) {
+    /**
+     * Convert emojis to unicode encoding
+     *
+     * @param $emoji
+     * @return string
+     */
+    function emojiToUnicode($emoji): string
+    {
+        $emoji = mb_convert_encoding($emoji, 'UTF-32', 'UTF-8');
+
+        return strtoupper(preg_replace("/^0+/", "U+", bin2hex($emoji)));
+    }
+}
