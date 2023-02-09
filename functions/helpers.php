@@ -343,19 +343,13 @@ if (!function_exists('paresMarkdown')) {
     }
 }
 
-
-
-if (!function_exists('emojiToUnicode')) {
+if (!function_exists('jsonPrettyEncode')) {
     /**
-     * Convert emojis to unicode encoding
-     *
-     * @param $emoji
-     * @return string
+     * @param mixed $value
+     * @return bool|string
      */
-    function emojiToUnicode($emoji): string
+    function jsonPrettyEncode(mixed $value): bool|string
     {
-        $emoji = mb_convert_encoding($emoji, 'UTF-32', 'UTF-8');
-
-        return strtoupper(preg_replace("/^0+/", "U+", bin2hex($emoji)));
+        return json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }
