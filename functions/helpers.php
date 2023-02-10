@@ -353,3 +353,34 @@ if (!function_exists('jsonPrettyEncode')) {
         return json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }
+
+if (!function_exists('normalizeUserSubmit')) {
+    /**
+     * Trim every line and remove doubled whitespaces and new lines
+     *
+     * @param string $string
+     * @return string
+     */
+    function normalizeUserSubmit(string $string): string
+    {
+        $string = preg_replace('/^\h+|\h+$/m', '', $string);
+        $string = preg_replace('/ {2,}/', ' ', $string);
+
+        return preg_replace("/\n{3,}/", "\n", $string);
+    }
+}
+
+if (!function_exists('emojiToUnicode')) {
+    /**
+     * Encode emojis to unicode
+     *
+     * @param $emoji
+     * @return string
+     */
+    function emojiToUnicode($emoji): string
+    {
+        $emoji = mb_convert_encoding($emoji, 'UTF-32', 'UTF-8');
+
+        return strtoupper(preg_replace("/^0+/", "U+", bin2hex($emoji)));
+    }
+}
