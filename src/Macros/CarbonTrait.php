@@ -3,6 +3,7 @@
 namespace NormanHuth\Helpers\Macros;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 
 trait CarbonTrait
 {
@@ -24,8 +25,7 @@ trait CarbonTrait
     protected function responseToDateTimeString(): void
     {
         Carbon::macro('responseToDateTimeString', function (string $datetime, bool $addOffset = false): string {
-            $datetime = substr($datetime, 0, 19);
-            $date = Carbon::createFromFormat('Y-m-d\TH:i:s', $datetime);
+            $date = Carbon::createFromFormat(DateTimeInterface::ATOM, $datetime);
             if ($addOffset) {
                 $offset = $date->getOffset();$date
                     ->addSeconds($offset);
