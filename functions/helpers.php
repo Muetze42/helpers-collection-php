@@ -408,3 +408,17 @@ if (!function_exists('zipDirectory')) {
         return Tool::zipDirectory($target, $source, $overwriteArchive);
     }
 }
+
+if (!function_exists('unzip')) {
+    /**
+     * Extract Zip archive contents
+     *
+     * @param string $source
+     * @param string $target
+     * @return bool
+     */
+    function zipDirectory(string $source, string $target): bool
+    {
+        return Tool::unzip($source, $target);
+    }
+}

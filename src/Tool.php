@@ -37,4 +37,23 @@ class Tool
 
         return false;
     }
+
+    /**
+     * Extract Zip archive contents
+     *
+     * @param string $source
+     * @param string $target
+     * @return bool
+     */
+    public static function unzip(string $source, string $target): bool
+    {
+        $zip = new ZipArchive;
+        if ($zip->open($source) === true) {
+            $zip->extractTo($target);
+
+            return $zip->close();
+        }
+
+        return false;
+    }
 }
