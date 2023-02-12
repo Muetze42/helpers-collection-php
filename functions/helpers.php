@@ -5,6 +5,7 @@ use NormanHuth\Helpers\Check;
 use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;
+use NormanHuth\Helpers\Tool;
 use NormanHuth\Helpers\Tools;
 use NormanHuth\Helpers\Url;
 
@@ -213,6 +214,12 @@ if (!function_exists('fillDigits')) {
 }
 
 if (!function_exists('isJson')) {
+    /**
+     * Check if a string is in JSON-Format
+     *
+     * @param string $data
+     * @return bool
+     */
     function isJson(string $data): bool
     {
         return Check::isJson($data);
@@ -345,6 +352,8 @@ if (!function_exists('paresMarkdown')) {
 
 if (!function_exists('jsonPrettyEncode')) {
     /**
+     * Returns the JSON representation pretty and unescaped of a value
+     *
      * @param mixed $value
      * @return bool|string
      */
@@ -382,5 +391,20 @@ if (!function_exists('emojiToUnicode')) {
         $emoji = mb_convert_encoding($emoji, 'UTF-32', 'UTF-8');
 
         return strtoupper(preg_replace("/^0+/", "U+", bin2hex($emoji)));
+    }
+}
+
+if (!function_exists('zipDirectory')) {
+    /**
+     * Create a file archive inclusive files in directories, compressed with Zip
+     *
+     * @param string $target
+     * @param string $source
+     * @param bool $overwriteArchive
+     * @return bool
+     */
+    function zipDirectory(string $target, string $source, bool $overwriteArchive = false): bool
+    {
+        return Tool::zipDirectory($target, $source, $overwriteArchive);
     }
 }
