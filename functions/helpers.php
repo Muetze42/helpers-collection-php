@@ -409,7 +409,7 @@ if (!function_exists('zipDirectory')) {
     }
 }
 
-if (!function_exists('unzip')) {
+if (!function_exists('zipDirectory')) {
     /**
      * Extract Zip archive contents
      *
