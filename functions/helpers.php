@@ -409,7 +409,7 @@ if (!function_exists('zipDirectory')) {
     }
 }
 
-if (!function_exists('zipDirectory')) {
+if (!function_exists('unzip')) {
     /**
      * Extract Zip archive contents
      *
@@ -417,7 +417,7 @@ if (!function_exists('zipDirectory')) {
      * @param string $target
      * @return bool
      */
-    function zipDirectory(string $source, string $target): bool
+    function unzip(string $source, string $target): bool
     {
         return Tool::unzip($source, $target);
     }
