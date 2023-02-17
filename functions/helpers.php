@@ -2,11 +2,11 @@
 
 use NormanHuth\Helpers\Arr;
 use NormanHuth\Helpers\Check;
+use NormanHuth\Helpers\Composer;
 use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;
 use NormanHuth\Helpers\Tool;
-use NormanHuth\Helpers\Tools;
 use NormanHuth\Helpers\Url;
 
 if (!function_exists('arrayClean')) {
@@ -14,7 +14,7 @@ if (!function_exists('arrayClean')) {
      * Remove null or optional empty entries from array
      *
      * @param array $array
-     * @param bool $removeEmptyValues
+     * @param bool  $removeEmptyValues
      * @return array
      */
     function arrayClear(array $array, bool $removeEmptyValues = false): array
@@ -34,7 +34,7 @@ if (!function_exists('arrayKeyMap')) {
      * Array map on array keys
      *
      * @param callable $callback
-     * @param array $array
+     * @param array    $array
      * @return array
      */
     function arrayKeyMap(callable $callback, array $array): array
@@ -65,7 +65,7 @@ if (!function_exists('randomWord')) {
      */
     function randomWord(array $words): string
     {
-        return Tools::randomWord($words);
+        return Tool::randomWord($words);
     }
 }
 
@@ -113,14 +113,14 @@ if (!function_exists('lastAnd')) {
      * Replace the last comma in a list with `and`
      *
      * @param string|array $content
-     * @param string $word
-     * @param string $glue
-     * @param string|null $translateFunction
+     * @param string       $word
+     * @param string       $glue
+     * @param string|null  $translateFunction
      * @return string
      */
     function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
     {
-        return Tools::lastAnd($content, $word, $glue, $translateFunction);
+        return Tool::lastAnd($content, $word, $glue, $translateFunction);
     }
 }
 
@@ -129,15 +129,15 @@ if (!function_exists('generateSerialNo')) {
      * Generate a serial number
      * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
      *
-     * @param bool $toUpper
-     * @param int $parts
-     * @param int $partLength
+     * @param bool   $toUpper
+     * @param int    $parts
+     * @param int    $partLength
      * @param string $separator
      * @return string
      */
     function generateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
     {
-        return Tools::generateSerialNo($toUpper, $parts, $partLength, $separator);
+        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }
 
@@ -145,9 +145,9 @@ if (!function_exists('dataGetByJsonFile')) {
     /**
      * Get data key by JSON file
      *
-     * @param string $file
+     * @param string                $file
      * @param array|int|string|null $key
-     * @param mixed $default
+     * @param mixed                 $default
      * @return array|mixed
      */
     function dataGetByJsonFile(string $file, array|int|string|null $key = null, mixed $default = null): mixed
@@ -160,10 +160,10 @@ if (!function_exists('strSlug')) {
     /**
      * Generate a URL friendly "slug" from a given string.
      *
-     * @param string $title
-     * @param string $separator
+     * @param string      $title
+     * @param string      $separator
      * @param string|null $language
-     * @param string[] $dictionary
+     * @param string[]    $dictionary
      * @return string
      */
     function strSlug(string $title, string $separator = '-', ?string $language = null, array $dictionary = ['@' => 'at']): string
@@ -190,12 +190,12 @@ if (!function_exists('ceilUpNearest')) {
      * Round up to the nearest multiple of `E`
      *
      * @param int|float $num
-     * @param int $step
+     * @param int       $step
      * @return float
      */
     function ceilUpNearest(int|float $num, int $step = 5): float
     {
-        return Tools::ceilUpNearest($num, $step);
+        return Tool::ceilUpNearest($num, $step);
     }
 }
 
@@ -204,12 +204,12 @@ if (!function_exists('fillDigits')) {
      * Format int with leading zeros
      *
      * @param int|null $int $int = 5
-     * @param int $digits
+     * @param int      $digits
      * @return string|null
      */
     function fillDigits(?int $int, int $digits = 5): ?string
     {
-        return Tools::fillDigits($int, $digits);
+        return Tool::fillDigits($int, $digits);
     }
 }
 
@@ -234,7 +234,7 @@ if (!function_exists('randomHexColor')) {
      */
     function randomHexColor(): string
     {
-        return Tools::randomHexColor();
+        return Tool::randomHexColor();
     }
 }
 
@@ -246,7 +246,7 @@ if (!function_exists('randomHexColorPart')) {
      */
     function randomHexColorPart(): string
     {
-        return Tools::randomHexColorPart();
+        return Tool::randomHexColorPart();
     }
 }
 
@@ -268,7 +268,7 @@ if (!function_exists('httpBuildQueryUrl')) {
      * Domain with queries via `http_build_query`
      *
      * @param string $url
-     * @param array $params
+     * @param array  $params
      * @return string
      */
     function httpBuildQueryUrl(string $url, array $params = []): string
@@ -295,15 +295,15 @@ if (!function_exists('toolGenerateSerialNo')) {
      * Generate a serial number
      * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
      *
-     * @param bool $toUpper
-     * @param int $parts
-     * @param int $partLength
+     * @param bool   $toUpper
+     * @param int    $parts
+     * @param int    $partLength
      * @param string $separator
      * @return string
      */
     function toolGenerateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
     {
-        return Tools::generateSerialNo($toUpper, $parts, $partLength, $separator);
+        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }
 
@@ -311,10 +311,10 @@ if (!function_exists('strExcerpt')) {
     /**
      * Get excerpt of a string
      *
-     * @param string $text
-     * @param int $limit
+     * @param string      $text
+     * @param int         $limit
      * @param string|null $excerpt
-     * @param string $end
+     * @param string      $end
      * @return string
      */
     function strExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
@@ -400,7 +400,7 @@ if (!function_exists('zipDirectory')) {
      *
      * @param string $target
      * @param string $source
-     * @param bool $overwriteArchive
+     * @param bool   $overwriteArchive
      * @return bool
      */
     function zipDirectory(string $target, string $source, bool $overwriteArchive = false): bool
@@ -420,5 +420,17 @@ if (!function_exists('unzip')) {
     function unzip(string $source, string $target): bool
     {
         return Tool::unzip($source, $target);
+    }
+}
+
+if (!function_exists('composerProjectPath')) {
+    /**
+     * Get Project root path
+     *
+     * @return string
+     */
+    function composerGetProjectPath(): string
+    {
+        return Composer::getProjectPath();
     }
 }
