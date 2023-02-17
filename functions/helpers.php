@@ -3,6 +3,7 @@
 use NormanHuth\Helpers\Arr;
 use NormanHuth\Helpers\Check;
 use NormanHuth\Helpers\Composer;
+use NormanHuth\Helpers\Exception\FileNotFoundException;
 use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;
@@ -215,14 +216,14 @@ if (!function_exists('fillDigits')) {
 
 if (!function_exists('isJson')) {
     /**
-     * Check if a string is in JSON-Format
+     * Determine if a given string is valid JSON
      *
-     * @param string $data
+     * @param string $value
      * @return bool
      */
-    function isJson(string $data): bool
+    function isJson(string $value): bool
     {
-        return Check::isJson($data);
+        return Str::isJson($value);
     }
 }
 
@@ -427,6 +428,7 @@ if (!function_exists('composerProjectPath')) {
     /**
      * Get Project root path
      *
+     * @throws FileNotFoundException
      * @return string
      */
     function composerGetProjectPath(): string
