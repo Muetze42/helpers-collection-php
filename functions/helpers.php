@@ -215,14 +215,14 @@ if (!function_exists('fillDigits')) {
 
 if (!function_exists('isJson')) {
     /**
-     * Check if a string is in JSON-Format
+     * Determine if a given string is valid JSON
      *
-     * @param string $data
+     * @param string $value
      * @return bool
      */
-    function isJson(string $data): bool
+    function isJson(string $value): bool
     {
-        return Check::isJson($data);
+        return Str::isJson($value);
     }
 }
 
