@@ -2,6 +2,9 @@
 
 namespace NormanHuth\Helpers;
 
+/**
+ * @deprecated Remove future versions
+ */
 class Check
 {
     /**

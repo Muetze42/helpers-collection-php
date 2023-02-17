@@ -3,6 +3,7 @@
 use NormanHuth\Helpers\Arr;
 use NormanHuth\Helpers\Check;
 use NormanHuth\Helpers\Composer;
+use NormanHuth\Helpers\Exception\FileNotFoundException;
 use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;
@@ -427,6 +428,7 @@ if (!function_exists('composerProjectPath')) {
     /**
      * Get Project root path
      *
+     * @throws FileNotFoundException
      * @return string
      */
     function composerGetProjectPath(): string
