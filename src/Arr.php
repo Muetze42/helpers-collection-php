@@ -10,7 +10,7 @@ class Arr extends BaseArr
      * Remove null or optional empty entries from array
      *
      * @param array $array
-     * @param bool $removeEmptyValues
+     * @param bool  $removeEmptyValues
      * @return array
      */
     public static function clean(array $array, bool $removeEmptyValues = false): array
@@ -24,7 +24,7 @@ class Arr extends BaseArr
      * Array map on array keys
      *
      * @param callable $callback
-     * @param array $array
+     * @param array    $array
      * @return array
      */
     public static function keyMap(callable $callback, array $array): array

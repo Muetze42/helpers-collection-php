@@ -9,10 +9,10 @@ class Str extends BaseStr
     /**
      * Get excerpt of a string
      *
-     * @param string $text
-     * @param int $limit
+     * @param string      $text
+     * @param int         $limit
      * @param string|null $excerpt
-     * @param string $end
+     * @param string      $end
      * @return string
      */
     public static function getExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
@@ -27,7 +27,7 @@ class Str extends BaseStr
             return self::getExcerpt($excerpt);
         }
 
-        $limit = $limit-strlen($end);
+        $limit = $limit - strlen($end);
 
         $string = wordwrap($string, $limit);
         $parts = explode("\n", $string);
@@ -49,9 +49,9 @@ class Str extends BaseStr
     /**
      * Generate a URL friendly "slug" from a given string.
      *
-     * @param string $title
-     * @param string $separator
-     * @param string|null $language
+     * @param string                $title
+     * @param string                $separator
+     * @param string|null           $language
      * @param array<string, string> $dictionary
      * @return string
      */
@@ -81,7 +81,7 @@ class Str extends BaseStr
      * Domain with queries via `http_build_query`
      *
      * @param string $url
-     * @param array $params
+     * @param array  $params
      * @return string
      */
     public static function httpBuildQueryUrl(string $url, array $params = []): string

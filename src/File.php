@@ -29,9 +29,9 @@ class File
     /**
      * Get data key by JSON file
      *
-     * @param string $file
+     * @param string                $file
      * @param array|int|string|null $key
-     * @param mixed $default
+     * @param mixed                 $default
      * @return array|mixed
      */
     public static function dataGetByJsonFile(string $file, array|int|string|null $key = null, mixed $default = null): mixed
