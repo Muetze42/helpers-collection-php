@@ -1,7 +1,6 @@
 <?php
 
 use NormanHuth\Helpers\Arr;
-use NormanHuth\Helpers\Check;
 use NormanHuth\Helpers\Composer;
 use NormanHuth\Helpers\Exception\FileNotFoundException;
 use NormanHuth\Helpers\File;
@@ -10,6 +9,11 @@ use NormanHuth\Helpers\Str;
 use NormanHuth\Helpers\Tool;
 use NormanHuth\Helpers\Url;
 
+/*
+|--------------------------------------------------------------------------
+| Array
+|--------------------------------------------------------------------------
+*/
 if (!function_exists('arrayClean')) {
     /**
      * Remove null or optional empty entries from array
@@ -44,32 +48,6 @@ if (!function_exists('arrayKeyMap')) {
     }
 }
 
-if (!function_exists('strSpaceBeforeCapitals')) {
-    /**
-     * Add whitespace before every upper char
-     *
-     * @param string $string
-     * @return string
-     */
-    function strSpaceBeforeCapitals(string $string): string
-    {
-        return Str::spaceBeforeCapitals($string);
-    }
-}
-
-if (!function_exists('randomWord')) {
-    /**
-     * Return a random word by array of words
-     *
-     * @param array $words
-     * @return string
-     */
-    function randomWord(array $words): string
-    {
-        return Tool::randomWord($words);
-    }
-}
-
 if (!function_exists('arrayReplaceNullValueWithEmptyString')) {
     /**
      * Replace every null value with empty string in an array
@@ -83,77 +61,51 @@ if (!function_exists('arrayReplaceNullValueWithEmptyString')) {
     }
 }
 
-if (!function_exists('fileGetExtension')) {
+/*
+|--------------------------------------------------------------------------
+| String & Int
+|--------------------------------------------------------------------------
+*/
+
+if (!function_exists('strSpaceBeforeCapitals')) {
     /**
-     * Get file extension from a file path
+     * Add whitespace before every upper char
      *
-     * @param string $path
+     * @param string $string
      * @return string
      */
-    function fileGetExtension(string $path): string
+    function strSpaceBeforeCapitals(string $string): string
     {
-        return File::getExtension($path);
+        return Str::spaceBeforeCapitals($string);
     }
 }
 
-if (!function_exists('fileGetFilename')) {
+if (function_exists('strRemoveNonASCIICharacters')) {
     /**
-     * Get filename from a file path
+     * Remove non ASCII characters from a string
      *
-     * @param string $path
+     * @param string $string
      * @return string
      */
-    function fileGetFilename(string $path): string
+    function strRemoveNonASCIICharacters(string $string): string
     {
-        return File::getFilename($path);
+        return Str::removeNonASCIICharacters($string);
     }
 }
 
-if (!function_exists('lastAnd')) {
+if (!function_exists('strExcerpt')) {
     /**
-     * Replace the last comma in a list with `and`
+     * Get excerpt of a string
      *
-     * @param string|array $content
-     * @param string       $word
-     * @param string       $glue
-     * @param string|null  $translateFunction
+     * @param string      $text
+     * @param int         $limit
+     * @param string|null $excerpt
+     * @param string      $end
      * @return string
      */
-    function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
+    function strExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
     {
-        return Tool::lastAnd($content, $word, $glue, $translateFunction);
-    }
-}
-
-if (!function_exists('generateSerialNo')) {
-    /**
-     * Generate a serial number
-     * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
-     *
-     * @param bool   $toUpper
-     * @param int    $parts
-     * @param int    $partLength
-     * @param string $separator
-     * @return string
-     */
-    function generateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
-    {
-        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
-    }
-}
-
-if (!function_exists('dataGetByJsonFile')) {
-    /**
-     * Get data key by JSON file
-     *
-     * @param string                $file
-     * @param array|int|string|null $key
-     * @param mixed                 $default
-     * @return array|mixed
-     */
-    function dataGetByJsonFile(string $file, array|int|string|null $key = null, mixed $default = null): mixed
-    {
-        return File::dataGetByJsonFile($file, $key, $default);
+        return Str::getExcerpt($text, $limit, $excerpt, $end);
     }
 }
 
@@ -170,19 +122,6 @@ if (!function_exists('strSlug')) {
     function strSlug(string $title, string $separator = '-', ?string $language = null, array $dictionary = ['@' => 'at']): string
     {
         return Str::slug($title, $separator, $language, $dictionary);
-    }
-}
-
-if (!function_exists('urlGetDomain')) {
-    /**
-     * Get Domain name from URL
-     *
-     * @param string $url
-     * @return string
-     */
-    function urlGetDomain(string $url): string
-    {
-        return Url::getDomain($url);
     }
 }
 
@@ -211,116 +150,6 @@ if (!function_exists('fillDigits')) {
     function fillDigits(?int $int, int $digits = 5): ?string
     {
         return Tool::fillDigits($int, $digits);
-    }
-}
-
-if (!function_exists('isJson')) {
-    /**
-     * Determine if a given string is valid JSON
-     *
-     * @param string $value
-     * @return bool
-     */
-    function isJson(string $value): bool
-    {
-        return Str::isJson($value);
-    }
-}
-
-if (!function_exists('randomHexColor')) {
-    /**
-     * Get a random HEX color
-     *
-     * @return string
-     */
-    function randomHexColor(): string
-    {
-        return Tool::randomHexColor();
-    }
-}
-
-if (!function_exists('randomHexColorPart')) {
-    /**
-     * Get a part of a HEX color
-     *
-     * @return string
-     */
-    function randomHexColorPart(): string
-    {
-        return Tool::randomHexColorPart();
-    }
-}
-
-if (!function_exists('imageIsPortrait')) {
-    /**
-     * Check if an image is in portrait format
-     *
-     * @param string $file
-     * @return bool
-     */
-    function isPortrait(string $file): bool
-    {
-        return Image::isPortrait($file);
-    }
-}
-
-if (!function_exists('httpBuildQueryUrl')) {
-    /**
-     * Domain with queries via `http_build_query`
-     *
-     * @param string $url
-     * @param array  $params
-     * @return string
-     */
-    function httpBuildQueryUrl(string $url, array $params = []): string
-    {
-        return Str::httpBuildQueryUrl($url, $params);
-    }
-}
-
-if (function_exists('strRemoveNonASCIICharacters')) {
-    /**
-     * Remove non ASCII characters from a string
-     *
-     * @param string $string
-     * @return string
-     */
-    function strRemoveNonASCIICharacters(string $string): string
-    {
-        return Str::removeNonASCIICharacters($string);
-    }
-}
-
-if (!function_exists('toolGenerateSerialNo')) {
-    /**
-     * Generate a serial number
-     * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
-     *
-     * @param bool   $toUpper
-     * @param int    $parts
-     * @param int    $partLength
-     * @param string $separator
-     * @return string
-     */
-    function toolGenerateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
-    {
-        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
-    }
-}
-
-if (!function_exists('strExcerpt')) {
-    /**
-     * Get excerpt of a string
-     *
-     * @param string      $text
-     * @param int         $limit
-     * @param string|null $excerpt
-     * @param string      $end
-     * @return string
-     */
-    function strExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
-    {
-        return Str::getExcerpt($text, $limit, $excerpt, $end);
     }
 }
 
@@ -395,6 +224,143 @@ if (!function_exists('emojiToUnicode')) {
     }
 }
 
+if (!function_exists('isJson')) {
+    /**
+     * Determine if a given string is valid JSON
+     *
+     * @param string $value
+     * @return bool
+     */
+    function isJson(string $value): bool
+    {
+        return Str::isJson($value);
+    }
+}
+
+if (!function_exists('isAscii')) {
+    /**
+     * Determine if a given string is 7 bit ASCII
+     *
+     * @param string $value
+     * @return bool
+     */
+    function isAscii(string $value): bool
+    {
+        return Str::isAscii($value);
+    }
+}
+
+if (!function_exists('isUuid')) {
+    /**
+     * Determine if a given string is a valid UUID
+     *
+     * @param string $value
+     * @return bool
+     */
+    function isUuid(string $value): bool
+    {
+        return Str::isUuid($value);
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tools
+|--------------------------------------------------------------------------
+*/
+
+if (!function_exists('randomWord')) {
+    /**
+     * Return a random word by array of words
+     *
+     * @param array $words
+     * @return string
+     */
+    function randomWord(array $words): string
+    {
+        return Tool::randomWord($words);
+    }
+}
+
+if (!function_exists('lastAnd')) {
+    /**
+     * Replace the last comma in a list with `and`
+     *
+     * @param string|array $content
+     * @param string       $word
+     * @param string       $glue
+     * @param string|null  $translateFunction
+     * @return string
+     */
+    function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
+    {
+        return Tool::lastAnd($content, $word, $glue, $translateFunction);
+    }
+}
+
+if (!function_exists('generateSerialNo')) {
+    /**
+     * Generate a serial number
+     * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
+     *
+     * @param bool   $toUpper
+     * @param int    $parts
+     * @param int    $partLength
+     * @param string $separator
+     * @return string
+     */
+    function generateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
+    {
+        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
+    }
+}
+
+if (!function_exists('dataGetByJsonFile')) {
+    /**
+     * Get data key by JSON file
+     *
+     * @param string                $file
+     * @param array|int|string|null $key
+     * @param mixed                 $default
+     * @return array|mixed
+     */
+    function dataGetByJsonFile(string $file, array|int|string|null $key = null, mixed $default = null): mixed
+    {
+        return File::dataGetByJsonFile($file, $key, $default);
+    }
+}
+
+if (!function_exists('httpBuildQueryUrl')) {
+    /**
+     * Domain with queries via `http_build_query`
+     *
+     * @param string $url
+     * @param array  $params
+     * @return string
+     */
+    function httpBuildQueryUrl(string $url, array $params = []): string
+    {
+        return Str::httpBuildQueryUrl($url, $params);
+    }
+}
+
+if (!function_exists('toolGenerateSerialNo')) {
+    /**
+     * Generate a serial number
+     * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
+     *
+     * @param bool   $toUpper
+     * @param int    $parts
+     * @param int    $partLength
+     * @param string $separator
+     * @return string
+     */
+    function toolGenerateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
+    {
+        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
+    }
+}
+
 if (!function_exists('zipDirectory')) {
     /**
      * Create a file archive inclusive files in directories, compressed with Zip
@@ -424,15 +390,94 @@ if (!function_exists('unzip')) {
     }
 }
 
-if (!function_exists('composerProjectPath')) {
+/*
+|--------------------------------------------------------------------------
+| Filesystem
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('fileGetExtension')) {
     /**
-     * Get Project root path
+     * Get file extension from a file path
      *
-     * @throws FileNotFoundException
+     * @param string $path
      * @return string
      */
-    function composerGetProjectPath(): string
+    function fileGetExtension(string $path): string
     {
-        return Composer::getProjectPath();
+        return File::getExtension($path);
+    }
+}
+
+if (!function_exists('fileGetFilename')) {
+    /**
+     * Get filename from a file path
+     *
+     * @param string $path
+     * @return string
+     */
+    function fileGetFilename(string $path): string
+    {
+        return File::getFilename($path);
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Image & Color
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('randomHexColor')) {
+    /**
+     * Get a random HEX color
+     *
+     * @return string
+     */
+    function randomHexColor(): string
+    {
+        return Tool::randomHexColor();
+    }
+}
+
+if (!function_exists('imageIsPortrait')) {
+    /**
+     * Check if an image is in portrait format
+     *
+     * @param string $file
+     * @return bool
+     */
+    function isPortrait(string $file): bool
+    {
+        return Image::isPortrait($file);
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Urls
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('urlGetDomain')) {
+    /**
+     * Get Domain name from URL
+     *
+     * @param string $url
+     * @return string
+     */
+    function urlGetDomain(string $url): string
+    {
+        return Url::getDomain($url);
+    }
+}
+
+if (!function_exists('randomHexColorPart')) {
+    /**
+     * Get a part of a HEX color
+     *
+     * @return string
+     */
+    function randomHexColorPart(): string
+    {
+        return Tool::randomHexColorPart();
     }
 }
