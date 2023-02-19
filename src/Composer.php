@@ -38,7 +38,7 @@ class Composer
      * @throws FileNotFoundException
      * @return string
      */
-    protected static function getComposerJsonPath(): string
+    public static function getComposerJsonPath(): string
     {
         return static::getProjectPath().DIRECTORY_SEPARATOR.'composer.json';
     }
@@ -52,6 +52,7 @@ class Composer
     public static function getLockDependencies(): array
     {
         $data = data_get(static::getComposerLockData(), 'packages'.self::$string, []);
+        self::$string = '';
 
         return Arr::pluck($data, 'version', 'name');
     }
@@ -85,6 +86,7 @@ class Composer
         $packages = static::sortPackages($packages);
         data_set($data, 'require'.self::$string, $packages);
         $file = static::getComposerJsonPath();
+        self::$string = '';
 
         return file_put_contents($file, jsonPrettyEncode($data));
     }
@@ -122,6 +124,7 @@ class Composer
         }
 
         $file = static::getComposerJsonPath();
+        self::$string = '';
 
         return file_put_contents($file, jsonPrettyEncode($data));
     }
@@ -146,7 +149,7 @@ class Composer
     public static function sortPackages(array $packages): array
     {
         $packages = Arr::keyMap(function ($value) {
-            if ($value == 'php') {
+            if (!str_contains($value, '/') && !str_contains($value, '-')) {
                 return '0'.$value;
             }
             if (!str_contains($value, '/')) {
@@ -191,7 +194,10 @@ class Composer
     {
         $data = static::getComposerJsonData();
 
-        return data_get($data, 'require'.self::$string.'.'.$package, false);
+        $key = 'require'.self::$string;
+        self::$string = '';
+
+        return data_get($data, $key.'.'.$package, false);
     }
 
     /**
