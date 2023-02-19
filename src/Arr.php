@@ -15,8 +15,8 @@ class Arr extends BaseArr
      */
     public static function clean(array $array, bool $removeEmptyValues = false): array
     {
-        return array_filter($array, function ($value) {
-            return !is_null($value);
+        return array_filter($array, function ($value) use ($removeEmptyValues) {
+            return !is_null($value) || ($removeEmptyValues && empty($value));
         });
     }
 
