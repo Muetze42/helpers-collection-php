@@ -171,10 +171,24 @@ if (!function_exists('paresMarkdown')) {
     /**
      * Parse the given Markdown text string into HTML.
      *
+     * @deprecated User `parseMarkdown` or `Str::markdown`
      * @param string $string
      * @return string
      */
     function paresMarkdown(string $string): string
+    {
+        return parseMarkdown($string);
+    }
+}
+
+if (!function_exists('parseMarkdown')) {
+    /**
+     * Parse the given Markdown text string into HTML.
+     *
+     * @param string $string
+     * @return string
+     */
+    function parseMarkdown(string $string): string
     {
         return Str::markdown($string);
     }
@@ -420,7 +434,6 @@ if (!function_exists('fileGetFilename')) {
         return File::getFilename($path);
     }
 }
-
 
 /*
 |--------------------------------------------------------------------------
