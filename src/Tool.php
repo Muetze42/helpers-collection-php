@@ -2,14 +2,17 @@
 
 namespace NormanHuth\Helpers;
 
-use Illuminate\Support\Str;
 use ZipArchive;
 
+/**
+ * @deprecated Use \NormanHuth\Helpers\Str or \NormanHuth\Helpers\File
+ */
 class Tool
 {
     /**
      * Replace the last comma in a list with `and` word
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::lastAnd
      * @param string|array $content
      * @param string       $word
      * @param string       $glue
@@ -18,40 +21,26 @@ class Tool
      */
     public static function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
     {
-        if (is_array($content)) {
-            $content = implode(', ', $content);
-        }
-
-        if (!str_contains($content, ',')) {
-            return $content;
-        }
-
-        if (!$translateFunction && class_exists('Illuminate\Foundation\Application')) {
-            $translateFunction = '__';
-        }
-
-        if ($translateFunction && function_exists($translateFunction)) {
-            $word = call_user_func($translateFunction, $word);
-        }
-
-        return substr_replace($content, ' '.$word, strrpos($content, $glue), 1);
+        return Str::lastAnd($content, $word, $glue, $translateFunction);
     }
 
     /**
      * Return a random word by array of words
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::randomWord
      * @param array $words
      * @return string
      */
     public static function randomWord(array $words): string
     {
-        return $words[mt_rand(0, (count($words) - 1))];
+        return Str::randomWord($words);
     }
 
     /**
      * Generate a serial number
      * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::generateSerialNo
      * @param bool   $toUpper
      * @param int    $parts
      * @param int    $partLength
@@ -60,75 +49,61 @@ class Tool
      */
     public static function generateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
     {
-        $keyParts = [];
-        for ($i = 1; $i <= $parts; $i++) {
-            $keyParts[] = Str::random($partLength);
-        }
-
-        $key = implode($separator, $keyParts);
-
-        return $toUpper ? Str::upper($key) : $key;
+        return Str::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 
     /**
      * Round up to the nearest multiple of `E`
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::ceilUpNearest
      * @param int|float $num
      * @param int       $step
      * @return float
      */
     public static function ceilUpNearest(int|float $num, int $step = 5): float
     {
-        if (round($step) != $step) {
-            $step = round($step);
-        }
-
-        if ($step < 0) {
-            $step = 1;
-        }
-
-        return ceil($num / $step) * $step;
+        return Str::ceilUpNearest($num, $step);
     }
 
     /**
      * Format int with leading zeros
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::fillDigits
      * @param int|null $int $int = 5
      * @param int      $digits
      * @return string|null
      */
     public static function fillDigits(?int $int, int $digits = 5): ?string
     {
-        if ($int > 0) {
-            return sprintf('%0'.$digits.'d', $int);
-        }
-
-        return null;
+        return Str::fillDigits($int, $digits);
     }
 
     /**
      * Get a random HEX color
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::randomHexColor
      * @return string
      */
     public static function randomHexColor(): string
     {
-        return static::randomHexColorPart().static::randomHexColorPart().static::randomHexColorPart();
+        return Str::randomHexColor();
     }
 
     /**
      * Get a part of a HEX color
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::randomHexColorPart
      * @return string
      */
     public static function randomHexColorPart(): string
     {
-        return str_pad(dechex(mt_rand(0, 255)), 2, '0', STR_PAD_LEFT);
+        return Str::randomHexColorPart();
     }
 
     /**
      * Create a file archive inclusive files in directories, compressed with Zip
      *
+     * @deprecated Use \NormanHuth\Helpers\File::zipDirectory
      * @param string   $target
      * @param string   $source
      * @param bool     $overwriteArchive
@@ -137,43 +112,19 @@ class Tool
      */
     public static function zipDirectory(string $target, string $source, bool $overwriteArchive = false, ?int $flags = null): bool
     {
-        $zip = new ZipArchive;
-
-        if (!$flags) {
-            $flags = $overwriteArchive ? ZipArchive::CREATE | ZipArchive::OVERWRITE : ZipArchive::CREATE;
-        }
-
-        if ($zip->open($target, $flags) === true) {
-            $files = \Illuminate\Support\Facades\File::allFiles(
-                $source
-            );
-
-            foreach ($files as $file) {
-                $zip->addFile($file->getPathname(), $file->getRelativePathname());
-            }
-
-            return $zip->close();
-        }
-
-        return false;
+        return File::zipDirectory($target, $source, $overwriteArchive, $flags);
     }
 
     /**
      * Extract Zip archive contents
      *
+     * @deprecated Use \NormanHuth\Helpers\File::unzip
      * @param string $source
      * @param string $target
      * @return bool
      */
     public static function unzip(string $source, string $target): bool
     {
-        $zip = new ZipArchive;
-        if ($zip->open($source) === true) {
-            $zip->extractTo($target);
-
-            return $zip->close();
-        }
-
-        return false;
+        return File::unzip($source, $target);
     }
 }

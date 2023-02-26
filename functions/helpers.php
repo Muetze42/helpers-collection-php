@@ -1,20 +1,29 @@
 <?php
 
 use NormanHuth\Helpers\Arr;
-use NormanHuth\Helpers\Composer;
-use NormanHuth\Helpers\Exception\FileNotFoundException;
 use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;
-use NormanHuth\Helpers\Tool;
-use NormanHuth\Helpers\Url;
 
 /*
 |--------------------------------------------------------------------------
 | Array
 |--------------------------------------------------------------------------
 */
-if (!function_exists('arrayClean')) {
+if (!function_exists('arrayClear')) {
+    /**
+     * Remove null or optional empty entries from array
+     *
+     * @deprecated Use`arrayClean` or `NormanHuth\Helpers\Arr::clean`
+     * @param array $array
+     * @param bool  $removeEmptyValues
+     * @return array
+     */
+    function arrayClear(array $array, bool $removeEmptyValues = false): array
+    {
+        return arrayClean($array, $removeEmptyValues);
+    }
+
     /**
      * Remove null or optional empty entries from array
      *
@@ -22,15 +31,9 @@ if (!function_exists('arrayClean')) {
      * @param bool  $removeEmptyValues
      * @return array
      */
-    function arrayClear(array $array, bool $removeEmptyValues = false): array
+    function arrayClean(array $array, bool $removeEmptyValues = false): array
     {
-        return array_filter($array, function ($value) use ($removeEmptyValues) {
-            if ($removeEmptyValues) {
-                return !empty($value);
-            }
-
-            return !is_null($value);
-        });
+        return Arr::clean($array, $removeEmptyValues);
     }
 }
 
@@ -135,7 +138,7 @@ if (!function_exists('ceilUpNearest')) {
      */
     function ceilUpNearest(int|float $num, int $step = 5): float
     {
-        return Tool::ceilUpNearest($num, $step);
+        return Str::ceilUpNearest($num, $step);
     }
 }
 
@@ -149,7 +152,7 @@ if (!function_exists('fillDigits')) {
      */
     function fillDigits(?int $int, int $digits = 5): ?string
     {
-        return Tool::fillDigits($int, $digits);
+        return Str::fillDigits($int, $digits);
     }
 }
 
@@ -171,9 +174,9 @@ if (!function_exists('paresMarkdown')) {
     /**
      * Parse the given Markdown text string into HTML.
      *
-     * @deprecated User `parseMarkdown` or `Str::markdown`
      * @param string $string
      * @return string
+     * @deprecated Use`parseMarkdown` or `Str::markdown`
      */
     function paresMarkdown(string $string): string
     {
@@ -203,7 +206,7 @@ if (!function_exists('jsonPrettyEncode')) {
      */
     function jsonPrettyEncode(mixed $value): bool|string
     {
-        return json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return Str::jsonPrettyEncode($value);
     }
 }
 
@@ -216,10 +219,7 @@ if (!function_exists('normalizeUserSubmit')) {
      */
     function normalizeUserSubmit(string $string): string
     {
-        $string = preg_replace('/^\h+|\h+$/m', '', $string);
-        $string = preg_replace('/ {2,}/', ' ', $string);
-
-        return preg_replace("/\n{3,}/", "\n", $string);
+        return Str::normalizeUserSubmit($string);
     }
 }
 
@@ -229,12 +229,11 @@ if (!function_exists('emojiToUnicode')) {
      *
      * @param $emoji
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::emojiToUnicode
      */
     function emojiToUnicode($emoji): string
     {
-        $emoji = mb_convert_encoding($emoji, 'UTF-32', 'UTF-8');
-
-        return strtoupper(preg_replace("/^0+/", "U+", bin2hex($emoji)));
+        return Str::emojiToUnicode($emoji);
     }
 }
 
@@ -257,6 +256,7 @@ if (!function_exists('isAscii')) {
      *
      * @param string $value
      * @return bool
+     * @deprecated Use Str::isAscii
      */
     function isAscii(string $value): bool
     {
@@ -270,6 +270,7 @@ if (!function_exists('isUuid')) {
      *
      * @param string $value
      * @return bool
+     * @deprecated Use Str::isUuid
      */
     function isUuid(string $value): bool
     {
@@ -289,10 +290,11 @@ if (!function_exists('randomWord')) {
      *
      * @param array $words
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::randomWord
      */
     function randomWord(array $words): string
     {
-        return Tool::randomWord($words);
+        return Str::randomWord($words);
     }
 }
 
@@ -305,10 +307,11 @@ if (!function_exists('lastAnd')) {
      * @param string       $glue
      * @param string|null  $translateFunction
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::randomWord
      */
     function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
     {
-        return Tool::lastAnd($content, $word, $glue, $translateFunction);
+        return Str::lastAnd($content, $word, $glue, $translateFunction);
     }
 }
 
@@ -322,10 +325,11 @@ if (!function_exists('generateSerialNo')) {
      * @param int    $partLength
      * @param string $separator
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::generateSerialNo
      */
     function generateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
     {
-        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
+        return Str::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }
 
@@ -337,6 +341,7 @@ if (!function_exists('dataGetByJsonFile')) {
      * @param array|int|string|null $key
      * @param mixed                 $default
      * @return array|mixed
+     * @deprecated Use \NormanHuth\Helpers\File::dataGetByJsonFile
      */
     function dataGetByJsonFile(string $file, array|int|string|null $key = null, mixed $default = null): mixed
     {
@@ -368,10 +373,11 @@ if (!function_exists('toolGenerateSerialNo')) {
      * @param int    $partLength
      * @param string $separator
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::generateSerialNo
      */
     function toolGenerateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
     {
-        return Tool::generateSerialNo($toUpper, $parts, $partLength, $separator);
+        return Str::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }
 
@@ -383,10 +389,11 @@ if (!function_exists('zipDirectory')) {
      * @param string $source
      * @param bool   $overwriteArchive
      * @return bool
+     * @deprecated Use \NormanHuth\Helpers\File::zipDirectory
      */
     function zipDirectory(string $target, string $source, bool $overwriteArchive = false): bool
     {
-        return Tool::zipDirectory($target, $source, $overwriteArchive);
+        return File::zipDirectory($target, $source, $overwriteArchive);
     }
 }
 
@@ -400,7 +407,7 @@ if (!function_exists('unzip')) {
      */
     function unzip(string $source, string $target): bool
     {
-        return Tool::unzip($source, $target);
+        return File::unzip($source, $target);
     }
 }
 
@@ -445,10 +452,11 @@ if (!function_exists('randomHexColor')) {
      * Get a random HEX color
      *
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::randomHexColor
      */
     function randomHexColor(): string
     {
-        return Tool::randomHexColor();
+        return Str::randomHexColor();
     }
 }
 
@@ -458,6 +466,7 @@ if (!function_exists('imageIsPortrait')) {
      *
      * @param string $file
      * @return bool
+     * @deprecated Use \NormanHuth\Helpers\Image::isPortrait
      */
     function isPortrait(string $file): bool
     {
@@ -474,12 +483,13 @@ if (!function_exists('urlGetDomain')) {
     /**
      * Get Domain name from URL
      *
+     * @deprecated Use \NormanHuth\Helpers\Str::getDomain
      * @param string $url
      * @return string
      */
     function urlGetDomain(string $url): string
     {
-        return Url::getDomain($url);
+        return Str::getDomain($url);
     }
 }
 
@@ -488,9 +498,10 @@ if (!function_exists('randomHexColorPart')) {
      * Get a part of a HEX color
      *
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::randomHexColorPart
      */
     function randomHexColorPart(): string
     {
-        return Tool::randomHexColorPart();
+        return Str::randomHexColorPart();
     }
 }

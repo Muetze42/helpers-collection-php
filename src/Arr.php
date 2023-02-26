@@ -16,12 +16,12 @@ class Arr extends BaseArr
     public static function clean(array $array, bool $removeEmptyValues = false): array
     {
         return array_filter($array, function ($value) use ($removeEmptyValues) {
-            return !is_null($value) || ($removeEmptyValues && empty($value));
+            return !$removeEmptyValues ? !is_null($value) : !empty($value);
         });
     }
 
     /**
-     * Array map on array keys
+     * Applies the callback to the elements of the given array keys
      *
      * @param callable $callback
      * @param array    $array
