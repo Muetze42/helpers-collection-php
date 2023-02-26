@@ -21,7 +21,7 @@ class Arr extends BaseArr
     }
 
     /**
-     * Array map on array keys
+     * Applies the callback to the elements of the given array keys
      *
      * @param callable $callback
      * @param array    $array
