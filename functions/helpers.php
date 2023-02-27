@@ -1,9 +1,25 @@
 <?php
 
 use NormanHuth\Helpers\Arr;
+use NormanHuth\Helpers\Composer;
+use NormanHuth\Helpers\Exception\FileNotFoundException;
 use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;
+
+if (!class_exists('Illuminate\Foundation\Application') && !function_exists('base_path')) {
+    /**
+     * Get the path to the base of the installation.
+     *
+     * @param string $path
+     * @throws FileNotFoundException
+     * @return string
+     */
+    function base_path(string $path = ''): string
+    {
+        return rtrim(Composer::getProjectPath(), '\\/').($path != '' ? DIRECTORY_SEPARATOR.ltrim($path, '\\/') : '');
+    }
+}
 
 /*
 |--------------------------------------------------------------------------
