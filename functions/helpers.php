@@ -323,7 +323,7 @@ if (!function_exists('lastAnd')) {
      * @param string       $glue
      * @param string|null  $translateFunction
      * @return string
-     * @deprecated Use \NormanHuth\Helpers\Str::randomWord
+     * @deprecated Use \NormanHuth\Helpers\Str::lastAnd
      */
     function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
     {
