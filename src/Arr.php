@@ -39,6 +39,7 @@ class Arr extends BaseArr
     /**
      * Replace every null value with empty string in an array
      *
+     * @deprecated
      * @param $value
      * @return void
      */

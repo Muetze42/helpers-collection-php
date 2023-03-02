@@ -14,6 +14,7 @@ class Str extends BaseStr
      * @param string|null $excerpt
      * @param string      $end
      * @return string
+     * @deprecated
      */
     public static function getExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
     {
@@ -57,7 +58,9 @@ class Str extends BaseStr
      */
     public static function slug($title, $separator = '-', $language = 'en', $dictionary = ['@' => 'at']): string
     {
-        if (!$language && class_exists('Illuminate\Support\Facades\App')) {
+        if (!$language && class_exists('Illuminate\Foundation\Application') &&
+            class_exists('Illuminate\Support\Facades\App') &&
+            method_exists('Illuminate\Support\Facades\App', 'getLocale')) {
             $language = \Illuminate\Support\Facades\App::getLocale();
         }
 
@@ -86,9 +89,10 @@ class Str extends BaseStr
      */
     public static function httpBuildQueryUrl(string $url, array $params = []): string
     {
+        $url = rtrim($url, '?');
         $arg_separator = parse_url($url, PHP_URL_QUERY) ? '&' : '?';
 
-        return $url.$arg_separator.http_build_query($params);
+        return $url.$arg_separator.Arr::query($params);
     }
 
     /**
@@ -100,7 +104,7 @@ class Str extends BaseStr
      */
     public static function indexNumber(int $int, int $steps = 100): int
     {
-        return (int)(floor($int / $steps)) * $steps;
+        return (int) (floor($int / $steps)) * $steps;
     }
 
     /**
@@ -112,14 +116,11 @@ class Str extends BaseStr
      * @param string|null  $translateFunction
      * @return string
      */
-    public static function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
+    public static function lastAnd(string|array $content, string $word = 'and', string $glue = ', ', ?string $translateFunction = null): string
     {
-        if (is_array($content)) {
-            $content = implode(', ', $content);
-        }
-
-        if (!str_contains($content, ',')) {
-            return $content;
+        if (!is_array($content)) {
+            $content = explode(',', $content);
+            $content = array_map('trim', $content);
         }
 
         if (!$translateFunction && class_exists('Illuminate\Foundation\Application')) {
@@ -130,7 +131,7 @@ class Str extends BaseStr
             $word = call_user_func($translateFunction, $word);
         }
 
-        return substr_replace($content, ' '.$word, strrpos($content, $glue), 1);
+        return Arr::join($content, $glue, ' '.$word.' ');
     }
 
     /**
@@ -138,6 +139,7 @@ class Str extends BaseStr
      *
      * @param array $words
      * @return string
+     * @deprecated Use Arr::random
      */
     public static function randomWord(array $words): string
     {

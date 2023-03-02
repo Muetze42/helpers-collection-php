@@ -22,5 +22,9 @@
         "ext-mbstring": "*",
         "ext-zip": "*"
     },
-    "minimum-stability": "dev"
+    "require-dev": {
+        "phpunit/phpunit": "^8.0.0|^9.0.0|^10.0.0"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
