@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use NormanHuth\Helpers\Arr;
 use NormanHuth\Helpers\Composer;
 use NormanHuth\Helpers\Exception\FileNotFoundException;
@@ -7,17 +9,32 @@ use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;
 
-if (!class_exists('Illuminate\Foundation\Application') && !function_exists('base_path')) {
-    /**
-     * Get the path to the base of the installation.
-     *
-     * @param string $path
-     * @throws FileNotFoundException
-     * @return string
-     */
-    function base_path(string $path = ''): string
-    {
-        return rtrim(Composer::getProjectPath(), '\\/').($path != '' ? DIRECTORY_SEPARATOR.ltrim($path, '\\/') : '');
+if (!class_exists('Illuminate\Foundation\Application')) {
+    if (!function_exists('base_path')) {
+        /**
+         * Get the path to the base of the installation.
+         *
+         * @param string $path
+         * @throws FileNotFoundException
+         * @return string
+         */
+        function base_path(string $path = ''): string
+        {
+            return rtrim(Composer::getProjectPath(), '\\/').($path != '' ? DIRECTORY_SEPARATOR.ltrim($path, '\\/') : '');
+        }
+    }
+
+    if (!function_exists('now')) {
+        /**
+         * Create a new Carbon instance for the current time.
+         *
+         * @param DateTimeZone|string|null $tz
+         * @return Carbon
+         */
+        function now(DateTimeZone|string $tz = null): Carbon
+        {
+            return Date::now($tz);
+        }
     }
 }
 
@@ -30,10 +47,10 @@ if (!function_exists('arrayClear')) {
     /**
      * Remove null or optional empty entries from array
      *
-     * @deprecated Use`arrayClean` or `NormanHuth\Helpers\Arr::clean`
      * @param array $array
      * @param bool  $removeEmptyValues
      * @return array
+     * @deprecated Use`arrayClean` or `NormanHuth\Helpers\Arr::clean`
      */
     function arrayClear(array $array, bool $removeEmptyValues = false): array
     {
@@ -73,6 +90,7 @@ if (!function_exists('arrayReplaceNullValueWithEmptyString')) {
      *
      * @param $value
      * @return void
+     * @deprecated
      */
     function arrayReplaceNullValueWithEmptyString(&$value): void
     {
@@ -92,6 +110,7 @@ if (!function_exists('strSpaceBeforeCapitals')) {
      *
      * @param string $string
      * @return string
+     * @deprecated
      */
     function strSpaceBeforeCapitals(string $string): string
     {
@@ -105,6 +124,7 @@ if (function_exists('strRemoveNonASCIICharacters')) {
      *
      * @param string $string
      * @return string
+     * @deprecated
      */
     function strRemoveNonASCIICharacters(string $string): string
     {
@@ -121,6 +141,7 @@ if (!function_exists('strExcerpt')) {
      * @param string|null $excerpt
      * @param string      $end
      * @return string
+     * @deprecated
      */
     function strExcerpt(string $text, int $limit = 100, ?string $excerpt = null, string $end = '...'): string
     {
@@ -202,14 +223,15 @@ if (!function_exists('paresMarkdown')) {
 
 if (!function_exists('parseMarkdown')) {
     /**
-     * Parse the given Markdown text string into HTML.
+     * Converts GitHub flavored Markdown into HTML.
      *
      * @param string $string
+     * @param array  $options
      * @return string
      */
-    function parseMarkdown(string $string): string
+    function parseMarkdown(string $string, array $options = []): string
     {
-        return Str::markdown($string);
+        return Str::markdown($string, $options);
     }
 }
 
@@ -306,7 +328,7 @@ if (!function_exists('randomWord')) {
      *
      * @param array $words
      * @return string
-     * @deprecated Use \NormanHuth\Helpers\Str::randomWord
+     * @deprecated Use Arr::random()
      */
     function randomWord(array $words): string
     {
@@ -499,9 +521,9 @@ if (!function_exists('urlGetDomain')) {
     /**
      * Get Domain name from URL
      *
-     * @deprecated Use \NormanHuth\Helpers\Str::getDomain
      * @param string $url
      * @return string
+     * @deprecated Use \NormanHuth\Helpers\Str::getDomain
      */
     function urlGetDomain(string $url): string
     {
