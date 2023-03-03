@@ -223,4 +223,55 @@ final class HelperTest extends TestCase
         self::assertInstanceOf(\Illuminate\Support\Carbon::class, $result);
         self::assertInstanceOf(\Carbon\Carbon::class, $result);
     }
+
+    public function test_blank(): void
+    {
+        $result = blank('');
+        self::assertTrue($result);
+
+        $result = blank('   ');
+        self::assertTrue($result);
+
+        $result = blank(null);
+        self::assertTrue($result);
+
+        $result = blank(collect());
+        self::assertTrue($result);
+
+        $result = blank(0);
+        self::assertFalse($result);
+
+        $result = blank(true);
+        self::assertFalse($result);
+
+        $result = blank(false);
+        self::assertFalse($result);
+    }
+
+    public function test_filled(): void
+    {
+        $result = filled(0);
+        self::assertTrue($result);
+        $result = filled(true);
+        self::assertTrue($result);
+        $result = filled(false);
+        self::assertTrue($result);
+
+        $result = filled('');
+        self::assertFalse($result);
+        $result = filled('   ');
+        self::assertFalse($result);
+        $result = filled(null);
+        self::assertFalse($result);
+        $result = filled(collect());
+        self::assertFalse($result);
+    }
+
+    public function test_collect(): void
+    {
+        $array = ['taylor', 'abigail'];
+        $collection = collect($array);
+        self::assertInstanceOf(\Illuminate\Support\Collection::class, $collection);
+        self::assertSame($array, $collection->toArray());
+    }
 }
