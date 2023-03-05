@@ -1,10 +1,14 @@
 {
     "name": "norman-huth/helpers-collection-php",
     "license": "MIT",
+    "support": {
+        "source": "https://github.com/Muetze42/helpers-collection-laravel",
+        "docs": "https://docs.huth.it/helpers-collection"
+    },
 	"authors": [
         {
             "name": "Norman Huth",
-            "email": "norman@huth.it"
+            "homepage": "https://huth.it"
         }
     ],
     "autoload": {
