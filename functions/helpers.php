@@ -1,5 +1,6 @@
 <?php
 
+use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 use NormanHuth\Helpers\Arr;
@@ -15,12 +16,19 @@ if (!class_exists('Illuminate\Foundation\Application')) {
          * Get the path to the base of the installation.
          *
          * @param string $path
-         * @throws FileNotFoundException
          * @return string
          */
         function base_path(string $path = ''): string
         {
-            return rtrim(Composer::getProjectPath(), '\\/').($path != '' ? DIRECTORY_SEPARATOR.ltrim($path, '\\/') : '');
+            if (!class_exists('\Composer\Autoload\ClassLoader')) {
+                $basePath = dirname(__DIR__, 4);
+            } else {
+                $reflection = new ReflectionClass(\Composer\Autoload\ClassLoader::class);
+
+                $basePath = dirname($reflection->getFileName(), 3);
+            }
+
+            return rtrim($basePath, '\\/').($path != '' ? DIRECTORY_SEPARATOR.ltrim($path, '\\/') : '');
         }
     }
 
