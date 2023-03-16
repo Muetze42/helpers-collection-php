@@ -3,11 +3,12 @@
 namespace NormanHuth\Helpers;
 
 use Illuminate\Support\Arr as BaseArr;
+use NormanHuth\Helpers\Exception\FileNotFoundException;
 
 class Arr extends BaseArr
 {
     /**
-     * Remove null or optional empty entries from array
+     * Remove null or optional empty entries from array.
      *
      * @param array $array
      * @param bool  $removeEmptyValues
@@ -21,7 +22,7 @@ class Arr extends BaseArr
     }
 
     /**
-     * Applies the callback to the elements of the given array keys
+     * Applies the callback to the elements of the given array keys.
      *
      * @param callable $callback
      * @param array    $array
@@ -37,14 +38,46 @@ class Arr extends BaseArr
     }
 
     /**
-     * Replace every null value with empty string in an array
+     * Replace every null value with empty string in an array.
      *
-     * @deprecated
      * @param $value
      * @return void
+     * @deprecated
      */
     public static function replaceNullValueWithEmptyString(&$value): void
     {
         $value = $value === null ? '' : $value;
+    }
+
+    /**
+     * Decodes a JSON string from files and return merged array.
+     *
+     * @param array|string $files
+     * @param bool         $throwFileNotFoundException
+     * @throws FileNotFoundException
+     * @return array
+     */
+    public static function fromJsonFiles(array|string $files, bool $throwFileNotFoundException = true): array
+    {
+        $returnArray = [];
+
+        if (!is_array($files)) {
+            $files = (array) $files;
+        }
+
+        foreach ($files as $file) {
+            if (!file_exists($file)) {
+                if ($throwFileNotFoundException) {
+                    return throw new FileNotFoundException($file);
+                }
+                continue;
+            }
+            $returnArray = array_merge(
+                $returnArray,
+                json_decode(file_get_contents($file), true)
+            );
+        }
+
+        return $returnArray;
     }
 }
