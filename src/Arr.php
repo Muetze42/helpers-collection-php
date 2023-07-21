@@ -80,4 +80,35 @@ class Arr extends BaseArr
 
         return $returnArray;
     }
+
+    /**
+     * Add an array key value pair to specific position into an existing key value array.
+     *
+     * @param array  $array
+     * @param string $key
+     * @param mixed  $value
+     * @param int    $position
+     * @param bool   $insertAfter
+     *
+     * @return array
+     */
+    public static function keyValueInsertToPosition(array $array, string $key, mixed $value, int $position, bool $insertAfter = true): array
+    {
+        $results = [];
+        $items = array_keys($array);
+
+        foreach ($items as $index => $item) {
+            if ($index == $position && !$insertAfter) {
+                $results[$key] = $value;
+            }
+
+            $results[$item] = $array[$item];
+
+            if ($index == $position && $insertAfter) {
+                $results[$key] = $value;
+            }
+        }
+
+        return $results;
+    }
 }
