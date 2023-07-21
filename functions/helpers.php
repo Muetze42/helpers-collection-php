@@ -1,11 +1,8 @@
 <?php
 
-use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 use NormanHuth\Helpers\Arr;
-use NormanHuth\Helpers\Composer;
-use NormanHuth\Helpers\Exception\FileNotFoundException;
 use NormanHuth\Helpers\File;
 use NormanHuth\Helpers\Image;
 use NormanHuth\Helpers\Str;

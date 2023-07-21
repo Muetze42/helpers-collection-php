@@ -7,7 +7,7 @@ use Illuminate\Support\Str as BaseStr;
 class Str extends BaseStr
 {
     /**
-     * Get excerpt of a string
+     * Get excerpt of a string.
      *
      * @param string      $text
      * @param int         $limit
@@ -37,7 +37,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Add whitespace before every upper char
+     * Add whitespace before every upper char.
      *
      * @param string $string
      * @return string
@@ -70,7 +70,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Remove non ASCII characters from a string
+     * Remove non ASCII characters from a string.
      *
      * @param string $string
      * @return string
@@ -81,7 +81,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Domain with queries via `http_build_query`
+     * Domain with queries via `http_build_query`.
      *
      * @param string $url
      * @param array  $params
@@ -96,7 +96,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Get index number of an integer
+     * Get index number of an integer.
      *
      * @param int $int
      * @param int $steps
@@ -108,7 +108,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Replace the last comma in a list with `and` word
+     * Replace the last comma in a list with `and` word.
      *
      * @param string|array $content
      * @param string       $word
@@ -135,7 +135,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Return a random word by array of words
+     * Return a random word by array of words.
      *
      * @param array $words
      * @return string
@@ -147,7 +147,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Generate a serial number
+     * Generate a serial number.
      * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
      *
      * @param bool   $toUpper
@@ -169,7 +169,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Round up to the nearest multiple of `E`
+     * Round up to the nearest multiple of `E`.
      *
      * @param int|float $num
      * @param int       $step
@@ -189,7 +189,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Format int with leading zeros
+     * Format int with leading zeros.
      *
      * @param int|null $int $int = 5
      * @param int      $digits
@@ -205,7 +205,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Get a random HEX color
+     * Get a random HEX color.
      *
      * @return string
      */
@@ -215,7 +215,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Get a part of a HEX color
+     * Get a part of a HEX color.
      *
      * @return string
      */
@@ -225,14 +225,14 @@ class Str extends BaseStr
     }
 
     /**
-     * Returns the JSON representation pretty and unescaped of a value
+     * Returns the JSON representation pretty and unescaped of a value.
      *
      * @param mixed $value
      * @return bool|string
      */
     public static function jsonPrettyEncode(mixed $value): bool|string
     {
-        return json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return json_encode($value, ConstantsInterface::JSON_PRETTY_FLAGS);
     }
 
     /**
