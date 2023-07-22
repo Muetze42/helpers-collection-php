@@ -181,6 +181,7 @@ class Table
         }
 
         foreach ($this->rows as $row) {
+            $row = array_values($row);
             foreach ($row as $key => $value) {
                 $current = data_get($this->lengths, $key, 0);
                 $length = strlen($value);
