@@ -10,7 +10,6 @@ class Table
     /**
      * Table cell align left.
      */
-
     const CELL_ALIGN_LEFT = STR_PAD_RIGHT;
 
     /**
@@ -121,7 +120,7 @@ class Table
     }
 
     /**
-     * Alias for addCell method to simplify the transition from other packages..
+     * Alias for addCell method to simplify the transition from other packages.
      *
      * @param string   $title
      * @param int|null $align
@@ -169,6 +168,8 @@ class Table
     }
 
     /**
+     * Detect the longest string of each row.
+     *
      * @return void
      */
     protected function setLengths(): void
@@ -232,6 +233,8 @@ class Table
     }
 
     /**
+     * Render the rows items.
+     *
      * @return void
      */
     protected function renderRows(): void
@@ -252,6 +255,8 @@ class Table
     }
 
     /**
+     * Return rendered Markdown Table as string.
+     *
      * @return string
      */
     public function render(): string
