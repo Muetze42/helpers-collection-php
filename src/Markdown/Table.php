@@ -240,6 +240,7 @@ class Table
     protected function renderRows(): void
     {
         foreach ($this->rows as $row) {
+            $row = array_values($row);
             foreach ($row as $key => $value) {
                 $this->markdown.= '| ';
                 $this->markdown.= str_pad(
