@@ -121,6 +121,22 @@ class Table
     }
 
     /**
+     * Alias for addCell method to simplify the transition from other packages..
+     *
+     * @param string   $title
+     * @param int|null $align
+     *
+     * @return $this
+     */
+    public function addColumn(
+        string $title,
+        #[ExpectedValues(values: [null, self::CELL_ALIGN_LEFT, self::CELL_ALIGN_CENTER, self::CELL_ALIGN_RIGHT])]
+        int $align = null
+    ): static {
+        return $this->addCell($title, $align);
+    }
+
+    /**
      * Add Table rows.
      *
      * @param array|Collection $rows
