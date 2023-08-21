@@ -18,7 +18,7 @@ trait CarbonTrait
     }
 
     /**
-     * Format API datetime strings to Carbon include App timezone conversion
+     * Format API datetime strings to Carbon include App timezone conversion.
      *
      * @return void
      */

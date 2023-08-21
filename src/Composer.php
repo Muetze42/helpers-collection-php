@@ -20,9 +20,9 @@ class Composer
     protected static ?string $path = null;
 
     /**
-     * Get composer.json content as array
+     * Get composer.json content as array.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array<string, mixed>
      */
     public static function getComposerJsonData(): array
@@ -33,34 +33,34 @@ class Composer
     }
 
     /**
-     * Get composer.json path
+     * Get composer.json path.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string
      */
     public static function getComposerJsonPath(): string
     {
-        return static::getProjectPath().DIRECTORY_SEPARATOR.'composer.json';
+        return static::getProjectPath() . DIRECTORY_SEPARATOR . 'composer.json';
     }
 
     /**
-     * Get locks dependencies
+     * Get locks dependencies.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array{package: string, version: string}
      */
     public static function getLockDependencies(): array
     {
-        $data = data_get(static::getComposerLockData(), 'packages'.self::$string, []);
+        $data = data_get(static::getComposerLockData(), 'packages' . self::$string, []);
         self::$string = '';
 
         return Arr::pluck($data, 'version', 'name');
     }
 
     /**
-     * Get locks development dependencies
+     * Get locks development dependencies.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array{package: string, version: string}
      */
     public static function getLockDevDependencies(): array
@@ -71,20 +71,21 @@ class Composer
     }
 
     /**
-     * Add or update a package requirement to composer.json
+     * Add or update a package requirement to composer.json.
      *
      * @param string     $package
      * @param string|int $version
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return false|int
      */
     public static function require(string $package, string|int $version): bool|int
     {
         $data = static::getComposerJsonData();
-        data_set($data, 'require'.self::$string.'.'.$package, $version);
-        $packages = data_get($data, 'require'.self::$string);
+        data_set($data, 'require' . self::$string . '.' . $package, $version);
+        $packages = data_get($data, 'require' . self::$string);
         $packages = static::sortPackages($packages);
-        data_set($data, 'require'.self::$string, $packages);
+        data_set($data, 'require' . self::$string, $packages);
         $file = static::getComposerJsonPath();
         self::$string = '';
 
@@ -92,11 +93,12 @@ class Composer
     }
 
     /**
-     * Add or update a package development requirement to composer.json
+     * Add or update a package development requirement to composer.json.
      *
      * @param string     $package
      * @param string|int $version
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return false|int
      */
     public static function requireDev(string $package, string|int $version): bool|int
@@ -107,10 +109,11 @@ class Composer
     }
 
     /**
-     * Remove a package requirement from composer.json
+     * Remove a package requirement from composer.json.
      *
      * @param string $package
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return false|int
      */
     public static function remove(string $package): bool|int
@@ -118,7 +121,7 @@ class Composer
         $data = static::getComposerJsonData();
 
         try {
-            unset($data['require'.self::$string][$package]);
+            unset($data['require' . self::$string][$package]);
         } catch (Exception $exception) {
             return false;
         }
@@ -130,10 +133,11 @@ class Composer
     }
 
     /**
-     * Remove a package development requirement from composer.json
+     * Remove a package development requirement from composer.json.
      *
      * @param string $package
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return false|int
      */
     public static function removeDev(string $package): bool|int
@@ -144,18 +148,19 @@ class Composer
 
     /**
      * @param array $packages
+     *
      * @return array
      */
     public static function sortPackages(array $packages): array
     {
         $packages = Arr::keyMap(function ($value) {
             if (!str_contains($value, '/') && !str_contains($value, '-')) {
-                return '0'.$value;
+                return '0' . $value;
             }
             if (!str_contains($value, '/')) {
-                return '1'.$value;
+                return '1' . $value;
             }
-            return '3'.$value;
+            return '3' . $value;
         }, $packages);
 
         ksort($packages);
@@ -166,14 +171,14 @@ class Composer
     }
 
     /**
-     * Get composer.lock content as array
+     * Get composer.lock content as array.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array<string, mixed>
      */
     public static function getComposerLockData(): array
     {
-        $file = static::getProjectPath().DIRECTORY_SEPARATOR.'composer.lock';
+        $file = static::getProjectPath() . DIRECTORY_SEPARATOR . 'composer.lock';
 
         if (!file_exists($file)) {
             return throw new FileNotFoundException($file);
@@ -183,29 +188,29 @@ class Composer
     }
 
     /**
-     * Check if package is in requirements
-     * Returns false or required version
+     * Check if package is in requirements.
+     * Returns false or required version.
      *
      * @param string $package
-     * @throws FileNotFoundException
+     *
      * @return false|string|int
      */
     public static function isRequire(string $package): false|string|int
     {
         $data = static::getComposerJsonData();
 
-        $key = 'require'.self::$string;
+        $key = 'require' . self::$string;
         self::$string = '';
 
-        return data_get($data, $key.'.'.$package, false);
+        return data_get($data, $key . '.' . $package, false);
     }
 
     /**
-     * Check if package is in development requirements
-     * Returns false or required version
+     * Check if package is in development requirements.
+     * Returns false or required version.
      *
      * @param string $package
-     * @throws FileNotFoundException
+     *
      * @return false|string|int
      */
     public static function isRequireDev(string $package): false|string|int
@@ -216,11 +221,11 @@ class Composer
     }
 
     /**
-     * Get a composer.json value
+     * Get a composer.json value.
      *
      * @param array|int|string|null $key
      * @param mixed|null            $default
-     * @throws FileNotFoundException
+     *
      * @return array|mixed
      */
     public static function getComposerJsonValue(array|int|string|null $key, mixed $default = null): mixed
@@ -229,9 +234,8 @@ class Composer
     }
 
     /**
-     * Get the name of the package
+     * Get the name of the package.
      *
-     * @throws FileNotFoundException
      * @return string|null
      */
     public static function getName(): ?string
@@ -240,9 +244,8 @@ class Composer
     }
 
     /**
-     * Get the description of the package
+     * Get the description of the package.
      *
-     * @throws FileNotFoundException
      * @return string|null
      */
     public static function getDescription(): ?string
@@ -251,9 +254,8 @@ class Composer
     }
 
     /**
-     * Get the license of the package
+     * Get the license of the package.
      *
-     * @throws FileNotFoundException
      * @return string|null
      */
     public static function getLicense(): ?string
@@ -262,9 +264,8 @@ class Composer
     }
 
     /**
-     * Get the homepage of the package
+     * Get the homepage of the package.
      *
-     * @throws FileNotFoundException
      * @return string|null
      */
     public static function getHomepage(): ?string
@@ -273,9 +274,8 @@ class Composer
     }
 
     /**
-     * Get the requirements of the package
+     * Get the requirements of the package.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getRequirements(): array
@@ -284,9 +284,8 @@ class Composer
     }
 
     /**
-     * Get the development requirements of the package
+     * Get the development requirements of the package.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getDevRequirements(): array
@@ -295,9 +294,8 @@ class Composer
     }
 
     /**
-     * Get the minimum stability of the package
+     * Get the minimum stability of the package.
      *
-     * @throws FileNotFoundException
      * @return string|null
      */
     public static function getStability(): ?string
@@ -306,20 +304,18 @@ class Composer
     }
 
     /**
-     * Get autoload mappings
+     * Get autoload mappings.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getAutoload(): array
     {
-        return static::getComposerJsonValue('autoload'.static::$string, []);
+        return static::getComposerJsonValue('autoload' . static::$string, []);
     }
 
     /**
-     * Get PSR-4 autoload mappings
+     * Get PSR-4 autoload mappings.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getAutoloadPSR4(): array
@@ -328,9 +324,8 @@ class Composer
     }
 
     /**
-     * Get autoloaded files
+     * Get autoloaded files.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getAutoloadFiles(): array
@@ -339,20 +334,18 @@ class Composer
     }
 
     /**
-     * Get development autoload mappings
+     * Get development autoload mappings.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getDevAutoload(): array
     {
-        return static::getComposerJsonValue('autoload-dev'.static::$string, []);
+        return static::getComposerJsonValue('autoload-dev' . static::$string, []);
     }
 
     /**
-     * Get PSR-4 development autoload mappings
+     * Get PSR-4 development autoload mappings.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getDevAutoloadPSR4(): array
@@ -361,9 +354,8 @@ class Composer
     }
 
     /**
-     * Get autoloaded development files
+     * Get autoloaded development files.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getDevAutoloadFiles(): array
@@ -372,9 +364,8 @@ class Composer
     }
 
     /**
-     * Get the keywords of the package
+     * Get the keywords of the package.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getKeywords(): array
@@ -383,9 +374,8 @@ class Composer
     }
 
     /**
-     * Get the configuration of the package
+     * Get the configuration of the package.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getConfig(): array
@@ -394,9 +384,8 @@ class Composer
     }
 
     /**
-     * Get the extra values of the package
+     * Get the extra values of the package.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getExtras(): array
@@ -405,25 +394,24 @@ class Composer
     }
 
     /**
-     * Get the scripts of the package
+     * Get the scripts of the package.
      *
      * @param string $event
-     * @throws FileNotFoundException
+     *
      * @return array
      */
     public static function getScripts(string $event = ''): array
     {
         if ($event) {
-            $event = '.'.$event;
+            $event = '.' . $event;
         }
 
-        return static::getComposerJsonValue('scripts'.$event, []);
+        return static::getComposerJsonValue('scripts' . $event, []);
     }
 
     /**
-     * Get the repositories of the package
+     * Get the repositories of the package.
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getRepositories(): array
@@ -434,7 +422,6 @@ class Composer
     /**
      * Get the authors of the package
      *
-     * @throws FileNotFoundException
      * @return array
      */
     public static function getAuthors(): array
@@ -443,9 +430,8 @@ class Composer
     }
 
     /**
-     * Get the vendor name of the package
+     * Get the vendor name of the package.
      *
-     * @throws FileNotFoundException
      * @return string|null
      */
     public static function getVendor(): ?string
@@ -459,9 +445,8 @@ class Composer
     }
 
     /**
-     * Get the package name of the package
+     * Get the package name of the package.
      *
-     * @throws FileNotFoundException
      * @return string|null
      */
     public static function getPackage(): ?string
@@ -479,11 +464,12 @@ class Composer
 
     /**
      * Return installed version composer package version via lock file.
-     * Returns null if not found
+     * Returns null if not found.
      *
      * @param string $package
      * @param bool   $includeDev
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string|int|null
      */
     public static function getLockedVersion(string $package, bool $includeDev = true): int|string|null
@@ -501,25 +487,26 @@ class Composer
     }
 
     /**
-     * Set different composer package path
+     * Set different composer package path.
      *
      * @param string $path
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return void
      */
     public static function setProjectPath(string $path): void
     {
-        if (!file_exists($path.DIRECTORY_SEPARATOR.'composer.json')) {
-            throw new FileNotFoundException($path.DIRECTORY_SEPARATOR.'composer.json');
+        if (!file_exists($path . DIRECTORY_SEPARATOR . 'composer.json')) {
+            throw new FileNotFoundException($path . DIRECTORY_SEPARATOR . 'composer.json');
         }
 
         self::$path = $path;
     }
 
     /**
-     * Get Project root path
+     * Get Project root path.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string
      */
     public static function getProjectPath(): string
@@ -536,12 +523,12 @@ class Composer
             $path = dirname($reflection->getFileName(), 3);
         }
 
-        $file = $path.DIRECTORY_SEPARATOR.'composer.json';
+        $file = $path . DIRECTORY_SEPARATOR . 'composer.json';
         if (!file_exists($file)) {
             return throw new FileNotFoundException($file);
         }
 
-        $file = $path.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
+        $file = $path . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
         if (!file_exists($file)) {
             return throw new FileNotFoundException($file);
         }

@@ -12,6 +12,7 @@ class Arr extends BaseArr
      *
      * @param array $array
      * @param bool  $removeEmptyValues
+     *
      * @return array
      */
     public static function clean(array $array, bool $removeEmptyValues = false): array
@@ -26,6 +27,7 @@ class Arr extends BaseArr
      *
      * @param callable $callback
      * @param array    $array
+     *
      * @return array
      */
     public static function keyMap(callable $callback, array $array): array
@@ -41,6 +43,7 @@ class Arr extends BaseArr
      * Replace every null value with empty string in an array.
      *
      * @param $value
+     *
      * @return void
      * @deprecated
      */
@@ -54,7 +57,8 @@ class Arr extends BaseArr
      *
      * @param array|string $files
      * @param bool         $throwFileNotFoundException
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array
      */
     public static function fromJsonFiles(array|string $files, bool $throwFileNotFoundException = true): array
@@ -92,8 +96,13 @@ class Arr extends BaseArr
      *
      * @return array
      */
-    public static function keyValueInsertToPosition(array $array, string $key, mixed $value, int $position, bool $insertAfter = true): array
-    {
+    public static function keyValueInsertToPosition(
+        array $array,
+        string $key,
+        mixed $value,
+        int $position,
+        bool $insertAfter = true
+    ): array {
         $results = [];
         $items = array_keys($array);
 

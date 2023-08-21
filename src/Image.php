@@ -5,7 +5,7 @@ namespace NormanHuth\Helpers;
 class Image
 {
     /**
-     * Check if an image is in portrait format
+     * Check if an image is in portrait format.
      *
      * @param string $file
      * @return bool
