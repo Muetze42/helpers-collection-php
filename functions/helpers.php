@@ -25,7 +25,7 @@ if (!class_exists('Illuminate\Foundation\Application')) {
                 $basePath = dirname($reflection->getFileName(), 3);
             }
 
-            return rtrim($basePath, '\\/').($path != '' ? DIRECTORY_SEPARATOR.ltrim($path, '\\/') : '');
+            return rtrim($basePath, '\\/') . ($path != '' ? DIRECTORY_SEPARATOR . ltrim($path, '\\/') : '');
         }
     }
 
@@ -50,7 +50,7 @@ if (!class_exists('Illuminate\Foundation\Application')) {
 */
 if (!function_exists('arrayClear')) {
     /**
-     * Remove null or optional empty entries from array
+     * Remove null or optional empty entries from array.
      *
      * @param array $array
      * @param bool  $removeEmptyValues
@@ -63,7 +63,7 @@ if (!function_exists('arrayClear')) {
     }
 
     /**
-     * Remove null or optional empty entries from array
+     * Remove null or optional empty entries from array.
      *
      * @param array $array
      * @param bool  $removeEmptyValues
@@ -77,7 +77,7 @@ if (!function_exists('arrayClear')) {
 
 if (!function_exists('arrayKeyMap')) {
     /**
-     * Array map on array keys
+     * Array map on array keys.
      *
      * @param callable $callback
      * @param array    $array
@@ -91,7 +91,7 @@ if (!function_exists('arrayKeyMap')) {
 
 if (!function_exists('arrayReplaceNullValueWithEmptyString')) {
     /**
-     * Replace every null value with empty string in an array
+     * Replace every null value with empty string in an array.
      *
      * @param $value
      * @return void
@@ -111,7 +111,7 @@ if (!function_exists('arrayReplaceNullValueWithEmptyString')) {
 
 if (!function_exists('strSpaceBeforeCapitals')) {
     /**
-     * Add whitespace before every upper char
+     * Add whitespace before every upper char.
      *
      * @param string $string
      * @return string
@@ -125,7 +125,7 @@ if (!function_exists('strSpaceBeforeCapitals')) {
 
 if (function_exists('strRemoveNonASCIICharacters')) {
     /**
-     * Remove non ASCII characters from a string
+     * Remove non ASCII characters from a string.
      *
      * @param string $string
      * @return string
@@ -139,7 +139,7 @@ if (function_exists('strRemoveNonASCIICharacters')) {
 
 if (!function_exists('strExcerpt')) {
     /**
-     * Get excerpt of a string
+     * Get excerpt of a string.
      *
      * @param string      $text
      * @param int         $limit
@@ -172,7 +172,7 @@ if (!function_exists('strSlug')) {
 
 if (!function_exists('ceilUpNearest')) {
     /**
-     * Round up to the nearest multiple of `E`
+     * Round up to the nearest multiple of `E`.
      *
      * @param int|float $num
      * @param int       $step
@@ -186,7 +186,7 @@ if (!function_exists('ceilUpNearest')) {
 
 if (!function_exists('fillDigits')) {
     /**
-     * Format int with leading zeros
+     * Format int with leading zeros.
      *
      * @param int|null $int $int = 5
      * @param int      $digits
@@ -200,7 +200,7 @@ if (!function_exists('fillDigits')) {
 
 if (!function_exists('indexNumber')) {
     /**
-     * Get index number of an integer
+     * Get index number of an integer.
      *
      * @param int $int
      * @param int $steps
@@ -242,7 +242,7 @@ if (!function_exists('parseMarkdown')) {
 
 if (!function_exists('jsonPrettyEncode')) {
     /**
-     * Returns the JSON representation pretty and unescaped of a value
+     * Returns the JSON representation pretty and unescaped of a value.
      *
      * @param mixed $value
      * @return bool|string
@@ -255,7 +255,7 @@ if (!function_exists('jsonPrettyEncode')) {
 
 if (!function_exists('normalizeUserSubmit')) {
     /**
-     * Trim every line and remove doubled whitespaces and new lines
+     * Trim every line and remove doubled whitespaces and new lines.
      *
      * @param string $string
      * @return string
@@ -268,7 +268,7 @@ if (!function_exists('normalizeUserSubmit')) {
 
 if (!function_exists('emojiToUnicode')) {
     /**
-     * Encode emojis to unicode
+     * Encode emojis to unicode.
      *
      * @param $emoji
      * @return string
@@ -282,7 +282,7 @@ if (!function_exists('emojiToUnicode')) {
 
 if (!function_exists('isJson')) {
     /**
-     * Determine if a given string is valid JSON
+     * Determine if a given string is valid JSON.
      *
      * @param string $value
      * @return bool
@@ -295,7 +295,7 @@ if (!function_exists('isJson')) {
 
 if (!function_exists('isAscii')) {
     /**
-     * Determine if a given string is 7 bit ASCII
+     * Determine if a given string is 7 bit ASCII.
      *
      * @param string $value
      * @return bool
@@ -309,7 +309,7 @@ if (!function_exists('isAscii')) {
 
 if (!function_exists('isUuid')) {
     /**
-     * Determine if a given string is a valid UUID
+     * Determine if a given string is a valid UUID.
      *
      * @param string $value
      * @return bool
@@ -329,7 +329,7 @@ if (!function_exists('isUuid')) {
 
 if (!function_exists('randomWord')) {
     /**
-     * Return a random word by array of words
+     * Return a random word by array of words.
      *
      * @param array $words
      * @return string
@@ -343,7 +343,7 @@ if (!function_exists('randomWord')) {
 
 if (!function_exists('lastAnd')) {
     /**
-     * Replace the last comma in a list with `and`
+     * Replace the last comma in a list with `and`.
      *
      * @param string|array $content
      * @param string       $word
@@ -352,15 +352,19 @@ if (!function_exists('lastAnd')) {
      * @return string
      * @deprecated Use \NormanHuth\Helpers\Str::lastAnd
      */
-    function lastAnd(string|array $content, string $word = 'and', string $glue = ',', ?string $translateFunction = null): string
-    {
+    function lastAnd(
+        string|array $content,
+        string $word = 'and',
+        string $glue = ',',
+        ?string $translateFunction = null
+    ): string {
         return Str::lastAnd($content, $word, $glue, $translateFunction);
     }
 }
 
 if (!function_exists('generateSerialNo')) {
     /**
-     * Generate a serial number
+     * Generate a serial number.
      * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
      *
      * @param bool   $toUpper
@@ -370,15 +374,19 @@ if (!function_exists('generateSerialNo')) {
      * @return string
      * @deprecated Use \NormanHuth\Helpers\Str::generateSerialNo
      */
-    function generateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
-    {
+    function generateSerialNo(
+        bool $toUpper = true,
+        int $parts = 5,
+        int $partLength = 5,
+        string $separator = '-'
+    ): string {
         return Str::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }
 
 if (!function_exists('dataGetByJsonFile')) {
     /**
-     * Get data key by JSON file
+     * Get data key by JSON file.
      *
      * @param string                $file
      * @param array|int|string|null $key
@@ -394,7 +402,7 @@ if (!function_exists('dataGetByJsonFile')) {
 
 if (!function_exists('httpBuildQueryUrl')) {
     /**
-     * Domain with queries via `http_build_query`
+     * Domain with queries via `http_build_query`.
      *
      * @param string $url
      * @param array  $params
@@ -408,7 +416,7 @@ if (!function_exists('httpBuildQueryUrl')) {
 
 if (!function_exists('toolGenerateSerialNo')) {
     /**
-     * Generate a serial number
+     * Generate a serial number.
      * Example: YCY8N-DWCII-W63JY-A71PA-FTUMU
      *
      * @param bool   $toUpper
@@ -418,15 +426,19 @@ if (!function_exists('toolGenerateSerialNo')) {
      * @return string
      * @deprecated Use \NormanHuth\Helpers\Str::generateSerialNo
      */
-    function toolGenerateSerialNo(bool $toUpper = true, int $parts = 5, int $partLength = 5, string $separator = '-'): string
-    {
+    function toolGenerateSerialNo(
+        bool $toUpper = true,
+        int $parts = 5,
+        int $partLength = 5,
+        string $separator = '-'
+    ): string {
         return Str::generateSerialNo($toUpper, $parts, $partLength, $separator);
     }
 }
 
 if (!function_exists('zipDirectory')) {
     /**
-     * Create a file archive inclusive files in directories, compressed with Zip
+     * Create a file archive inclusive files in directories, compressed with Zip.
      *
      * @param string $target
      * @param string $source
@@ -442,7 +454,7 @@ if (!function_exists('zipDirectory')) {
 
 if (!function_exists('unzip')) {
     /**
-     * Extract Zip archive contents
+     * Extract Zip archive contents.
      *
      * @param string $source
      * @param string $target
@@ -461,7 +473,7 @@ if (!function_exists('unzip')) {
 */
 if (!function_exists('fileGetExtension')) {
     /**
-     * Get file extension from a file path
+     * Get file extension from a file path.
      *
      * @param string $path
      * @return string
@@ -474,7 +486,7 @@ if (!function_exists('fileGetExtension')) {
 
 if (!function_exists('fileGetFilename')) {
     /**
-     * Get filename from a file path
+     * Get filename from a file path.
      *
      * @param string $path
      * @return string
@@ -492,7 +504,7 @@ if (!function_exists('fileGetFilename')) {
 */
 if (!function_exists('randomHexColor')) {
     /**
-     * Get a random HEX color
+     * Get a random HEX color.
      *
      * @return string
      * @deprecated Use \NormanHuth\Helpers\Str::randomHexColor
@@ -505,7 +517,7 @@ if (!function_exists('randomHexColor')) {
 
 if (!function_exists('imageIsPortrait')) {
     /**
-     * Check if an image is in portrait format
+     * Check if an image is in portrait format.
      *
      * @param string $file
      * @return bool
@@ -524,7 +536,7 @@ if (!function_exists('imageIsPortrait')) {
 */
 if (!function_exists('urlGetDomain')) {
     /**
-     * Get Domain name from URL
+     * Get Domain name from URL.
      *
      * @param string $url
      * @return string
@@ -538,7 +550,7 @@ if (!function_exists('urlGetDomain')) {
 
 if (!function_exists('randomHexColorPart')) {
     /**
-     * Get a part of a HEX color
+     * Get a part of a HEX color.
      *
      * @return string
      * @deprecated Use \NormanHuth\Helpers\Str::randomHexColorPart

@@ -10,17 +10,17 @@ class Table
     /**
      * Table cell align left.
      */
-    const CELL_ALIGN_LEFT = STR_PAD_RIGHT;
+    public const CELL_ALIGN_LEFT = STR_PAD_RIGHT;
 
     /**
      * Table cell align center.
      */
-    const CELL_ALIGN_CENTER = STR_PAD_BOTH;
+    public const CELL_ALIGN_CENTER = STR_PAD_BOTH;
 
     /**
      * Table cell align right.
      */
-    const CELL_ALIGN_RIGHT = STR_PAD_LEFT;
+    public const CELL_ALIGN_RIGHT = STR_PAD_LEFT;
 
     /**
      * The default cell alignment.
@@ -28,13 +28,6 @@ class Table
      * @var int
      */
     protected int $defaultAlign;
-
-    /**
-     * The alignments of each
-     *
-     * @var array
-     */
-    protected array $alignments;
 
     /**
      * The Table cells items.
@@ -200,20 +193,20 @@ class Table
     protected function renderHeading(): void
     {
         foreach ($this->cells as $key => $cell) {
-            $this->markdown.= '| ';
+            $this->markdown .= '| ';
 
-            $this->markdown.= str_pad(
+            $this->markdown .= str_pad(
                 $cell['title'],
                 $this->lengths[$key],
                 ' ',
                 $cell['algin']
             );
-            $this->markdown.= ' ';
+            $this->markdown .= ' ';
         }
-        $this->markdown.= "|\n";
+        $this->markdown .= "|\n";
 
         foreach ($this->cells as $key => $cell) {
-            $this->markdown.= '|';
+            $this->markdown .= '|';
 
             $hyphen = str_pad(
                 '',
@@ -223,14 +216,14 @@ class Table
             );
 
             $hyphen = match ($cell['algin']) {
-                self::CELL_ALIGN_LEFT => $this->alignLeftPrefix.'-' . $hyphen,
+                self::CELL_ALIGN_LEFT => $this->alignLeftPrefix . '-' . $hyphen,
                 self::CELL_ALIGN_RIGHT => $hyphen . '-:',
                 default => ':' . $hyphen . ':',
             };
 
-            $this->markdown.= $hyphen;
+            $this->markdown .= $hyphen;
         }
-        $this->markdown.= "|\n";
+        $this->markdown .= "|\n";
     }
 
     /**
@@ -243,16 +236,16 @@ class Table
         foreach ($this->rows as $row) {
             $row = array_values($row);
             foreach ($row as $key => $value) {
-                $this->markdown.= '| ';
-                $this->markdown.= str_pad(
+                $this->markdown .= '| ';
+                $this->markdown .= str_pad(
                     $value,
                     $this->lengths[$key],
                     ' ',
                     $this->cells[$key]['algin']
                 );
-                $this->markdown.= ' ';
+                $this->markdown .= ' ';
             }
-            $this->markdown.= "|\n";
+            $this->markdown .= "|\n";
         }
     }
 

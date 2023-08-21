@@ -16,25 +16,25 @@ class Package
     protected static string $string = '';
 
     /**
-     * Get package.json path
+     * Get package.json path.
      *
-     * @throws Exception\FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string
      */
     public static function getPackageJsonPath(): string
     {
-        return static::getProjectPath().DIRECTORY_SEPARATOR.'package.json';
+        return static::getProjectPath() . DIRECTORY_SEPARATOR . 'package.json';
     }
 
     /**
-     * Get package-lock.json path
+     * Get package-lock.json path.
      *
-     * @throws Exception\FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string
      */
     public static function getPackageLockJsonPath(): string
     {
-        $file = static::getProjectPath().DIRECTORY_SEPARATOR.'package-lock.json';
+        $file = static::getProjectPath() . DIRECTORY_SEPARATOR . 'package-lock.json';
 
         if (!file_exists($file)) {
             return throw new FileNotFoundException($file);
@@ -44,9 +44,9 @@ class Package
     }
 
     /**
-     * Get package.json content as array
+     * Get package.json content as array.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array
      */
     public static function getPackageJsonData(): array
@@ -57,9 +57,9 @@ class Package
     }
 
     /**
-     * Get package-lock.json content as array
+     * Get package-lock.json content as array.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array
      */
     public static function getPackageLockJsonData(): array
@@ -70,11 +70,12 @@ class Package
     }
 
     /**
-     * Get package.json value
+     * Get package.json value.
      *
      * @param array|int|string|null $key
      * @param mixed|null            $default
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return mixed
      */
     public static function getPackageJsonValue(array|int|string|null $key, mixed $default = null): mixed
@@ -83,11 +84,12 @@ class Package
     }
 
     /**
-     * Get package-lock.json value
+     * Get package-lock.json value.
      *
      * @param array|int|string|null $key
      * @param mixed|null            $default
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return mixed
      */
     public static function getPackageLockJsonValue(array|int|string|null $key, mixed $default = null): mixed
@@ -96,9 +98,9 @@ class Package
     }
 
     /**
-     * Get scripts
+     * Get scripts.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array|null
      */
     public static function getScripts(): ?array
@@ -107,9 +109,9 @@ class Package
     }
 
     /**
-     * Get dependencies
+     * Get dependencies.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array|null
      */
     public static function getDependencies(): ?array
@@ -118,9 +120,9 @@ class Package
     }
 
     /**
-     * Get development dependencies
+     * Get development dependencies.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array|null
      */
     public static function getDevDependencies(): ?array
@@ -129,9 +131,9 @@ class Package
     }
 
     /**
-     * Get package name
+     * Get package name.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string|null
      */
     public static function getName(): ?string
@@ -140,9 +142,9 @@ class Package
     }
 
     /**
-     * Get package description
+     * Get package description.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string|null
      */
     public static function getDescription(): ?string
@@ -151,9 +153,9 @@ class Package
     }
 
     /**
-     * Get package homepage
+     * Get package homepage.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string|null
      */
     public static function getHomepage(): ?string
@@ -162,9 +164,9 @@ class Package
     }
 
     /**
-     * Get package version
+     * Get package version.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string|int|null
      */
     public static function getVersion(): int|string|null
@@ -173,9 +175,9 @@ class Package
     }
 
     /**
-     * Get package license
+     * Get package license.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return string|null
      */
     public static function getLicense(): ?string
@@ -184,9 +186,9 @@ class Package
     }
 
     /**
-     * Get package keywords
+     * Get package keywords.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array|null
      */
     public static function getKeywords(): ?array
@@ -195,9 +197,9 @@ class Package
     }
 
     /**
-     * Get package bugs
+     * Get package bugs.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array|null
      */
     public static function getBugs(): ?array
@@ -206,9 +208,9 @@ class Package
     }
 
     /**
-     * Get package author
+     * Get package author.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array|string|null
      */
     public static function getAuthor(): array|string|null
@@ -217,9 +219,9 @@ class Package
     }
 
     /**
-     * Get package bin
+     * Get package bin.
      *
-     * @throws FileNotFoundException
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return array|string|null
      */
     public static function getBin(): array|string|null
@@ -228,11 +230,12 @@ class Package
     }
 
     /**
-     * Add dependency to package.json
+     * Add dependency to package.json.
      *
      * @param string     $package
      * @param string|int $version
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return bool|int
      */
     public static function setDependency(string $package, string|int $version): bool|int
@@ -240,7 +243,7 @@ class Package
         $string = !empty(self::$string) ? self::$string : 'dependencies';
 
         $data = static::getPackageJsonData();
-        data_set($data, $string.'.'.$package, $version);
+        data_set($data, $string . '.' . $package, $version);
         $dependencies = data_get($data, $string);
         ksort($dependencies);
         data_set($data, $string, $dependencies);
@@ -251,11 +254,12 @@ class Package
     }
 
     /**
-     * Add development dependency to package.json
+     * Add development dependency to package.json.
      *
      * @param string     $package
      * @param string|int $version
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return bool|int
      */
     public static function setDevDependency(string $package, string|int $version): bool|int
@@ -266,10 +270,11 @@ class Package
     }
 
     /**
-     * Remove dependency from package.json
+     * Remove dependency from package.json.
      *
      * @param string $package
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return bool|int
      */
     public static function remove(string $package): bool|int
@@ -291,10 +296,11 @@ class Package
     }
 
     /**
-     * Remove development dependency from package.json
+     * Remove development dependency from package.json.
      *
      * @param string $package
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return bool|int
      */
     public static function removeDev(string $package): bool|int
@@ -305,27 +311,29 @@ class Package
     }
 
     /**
-     * Add or update script to package.json
+     * Add or update script to package.json.
      *
      * @param string $command
      * @param string $execute
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return bool|int
      */
     public static function setScript(string $command, string $execute): bool|int
     {
         $data = static::getPackageJsonData();
-        data_set($data, 'scripts.'.$command, $execute);
+        data_set($data, 'scripts.' . $command, $execute);
         $file = static::getPackageJsonPath();
 
         return file_put_contents($file, jsonPrettyEncode($data));
     }
 
     /**
-     * Remove script from package.json
+     * Remove script from package.json.
      *
      * @param string $command
-     * @throws FileNotFoundException
+     *
+     * @throws \NormanHuth\Helpers\Exception\FileNotFoundException
      * @return bool|int
      */
     public static function removeScript(string $command): bool|int

@@ -7,9 +7,10 @@ use ZipArchive;
 class File
 {
     /**
-     * Get file extension from a file path
+     * Get file extension from a file path.
      *
      * @param string $path
+     *
      * @return string
      */
     public static function getExtension(string $path): string
@@ -18,9 +19,10 @@ class File
     }
 
     /**
-     * Get filename from a file path
+     * Get filename from a file path.
      *
      * @param string $path
+     *
      * @return string
      */
     public static function getFilename(string $path): string
@@ -29,32 +31,41 @@ class File
     }
 
     /**
-     * Get data key by JSON file
+     * Get data key by JSON file.
      *
      * @param string                $file
      * @param array|int|string|null $key
      * @param mixed                 $default
+     *
      * @return array|mixed
      */
-    public static function dataGetByJsonFile(string $file, array|int|string|null $key = null, mixed $default = null): mixed
-    {
+    public static function dataGetByJsonFile(
+        string $file,
+        array|int|string|null $key = null,
+        mixed $default = null
+    ): mixed {
         $target = json_decode(file_get_contents($file), true);
 
         return data_get($target, $key, $default);
     }
 
     /**
-     * Create a file archive inclusive files in directories, compressed with Zip
+     * Create a file archive inclusive files in directories, compressed with Zip.
      *
      * @param string   $target
      * @param string   $source
      * @param bool     $overwriteArchive
      * @param int|null $flags
+     *
      * @return bool
      */
-    public static function zipDirectory(string $target, string $source, bool $overwriteArchive = false, ?int $flags = null): bool
-    {
-        $zip = new ZipArchive;
+    public static function zipDirectory(
+        string $target,
+        string $source,
+        bool $overwriteArchive = false,
+        ?int $flags = null
+    ): bool {
+        $zip = new ZipArchive();
 
         if (!$flags) {
             $flags = $overwriteArchive ? ZipArchive::CREATE | ZipArchive::OVERWRITE : ZipArchive::CREATE;
@@ -76,15 +87,16 @@ class File
     }
 
     /**
-     * Extract Zip archive contents
+     * Extract Zip archive contents.
      *
      * @param string $source
      * @param string $target
+     *
      * @return bool
      */
     public static function unzip(string $source, string $target): bool
     {
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         if ($zip->open($source) === true) {
             $zip->extractTo($target);
 
