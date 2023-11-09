@@ -2,6 +2,8 @@
 
 namespace NormanHuth\Helpers\Enums;
 
+use Illuminate\Support\Arr;
+
 enum HttpStatusCodeEnum: int
 {
     case HTTP_CONTINUE = 100;
@@ -135,5 +137,17 @@ enum HttpStatusCodeEnum: int
             self::HTTP_NOT_EXTENDED => 'Not Extended',
             self::HTTP_NETWORK_AUTHENTICATION_REQUIRED => 'Network Authentication Required',
         };
+    }
+
+    /**
+     * Return value label array.
+     *
+     * @return array<string, string>
+     */
+    public static function toOptionsArray(): array
+    {
+        return Arr::mapWithKeys(self::cases(), function (self $enum) {
+            return [$enum->value => $enum->message()];
+        });
     }
 }

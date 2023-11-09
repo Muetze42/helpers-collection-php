@@ -14,7 +14,7 @@ trait EnumTrait
     public static function toOptionsArray(): array
     {
         return Arr::mapWithKeys(self::cases(), function (self $enum) {
-            return [$enum->value => $enum->label()];
+            return [$enum->name => $enum->value];
         });
     }
 }
