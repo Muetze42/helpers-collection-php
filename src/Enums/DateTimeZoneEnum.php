@@ -1,6 +1,6 @@
 <?php
 
-namespace NormanHuth\Helpers\Traits;
+namespace NormanHuth\Helpers\Enums;
 
 use NormanHuth\Helpers\Traits\EnumTrait;
 
