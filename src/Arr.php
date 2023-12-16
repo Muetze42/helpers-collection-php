@@ -120,4 +120,20 @@ class Arr extends BaseArr
 
         return $results;
     }
+
+    /**
+     * Generate URL query string with identical keys.
+     *
+     * @param string  $key
+     * @param array   $data
+     * @param string  $argumentSeparator
+     *
+     * @return string
+     */
+    public function httpBuildArrayQuery(string $key, array $data, string $argumentSeparator = '&'): string
+    {
+        $data = array_map(fn($value) => $key . '=' . $value, $data);
+
+        return implode($argumentSeparator, $data);
+    }
 }

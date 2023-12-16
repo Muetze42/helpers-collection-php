@@ -152,7 +152,7 @@ class Str extends BaseStr
     }
 
     /**
-     * Return a random word by array of words.
+     * Return a random word by an array of words.
      *
      * @param array $words
      *
