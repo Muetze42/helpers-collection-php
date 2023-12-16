@@ -130,7 +130,7 @@ class Arr extends BaseArr
      *
      * @return string
      */
-    public function httpBuildArrayQuery(string $key, array $data, string $argumentSeparator = '&'): string
+    public static function httpBuildArrayQuery(string $key, array $data, string $argumentSeparator = '&'): string
     {
         $data = array_map(fn($value) => $key . '=' . $value, $data);
 
