@@ -23,7 +23,7 @@
         "php": "^8.1",
         "ext-mbstring": "*",
         "ext-zip": "*",
-        "illuminate/support": "^8.0|^9.0|^10.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
         "league/commonmark": "^2.2",
         "nesbot/carbon": "^2.53.1",
         "norman-huth/markdown": "^v1.0.2",
