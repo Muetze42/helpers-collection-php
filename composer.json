@@ -25,11 +25,11 @@
         "ext-zip": "*",
         "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
         "league/commonmark": "^2.2",
-        "nesbot/carbon": "^2.53.1",
+        "nesbot/carbon": "^2.53.1|^3.0.0",
         "norman-huth/markdown": "^v1.0.2",
         "ramsey/uuid": "^3.0|^4.0",
-        "symfony/uid": "^5.1|^6.0",
-        "symfony/var-dumper": "^4.0|^5.0|^6.0"
+        "symfony/uid": "^5.1|^6.0|^7.0",
+        "symfony/var-dumper": "^4.0|^5.0|^6.0|^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0.0|^9.0.0|^10.0.0"
